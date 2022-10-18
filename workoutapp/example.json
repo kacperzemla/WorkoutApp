@@ -1,0 +1,20 @@
+{
+    "workoutName":"xd",
+    "workout":[
+       {
+          "exerciseName":"d",
+          "sets":[
+             {
+                "number":1,
+                "reps":20,
+                "weight":10
+             },
+             {
+                "number": 2,
+                "reps": 5,
+                "weigth": 30
+             }
+          ]
+       }
+    ]
+ }

@@ -1,0 +1,82 @@
+@import '_variables.scss';
+// @use './_variables';
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    min-height: 100vh;
+    padding-bottom: 15rem;
+}
+
+
+
+.container, .container-vertical{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-vertical{
+    flex-direction: column;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+
+.nav{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.nav-list{
+    display: flex;
+    flex-direction: row;
+    background-color: $primary-color;
+    height: 5rem;
+    justify-content: center;
+    list-style: none;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-item{
+    color: #fff;
+    text-align: center;
+    width: 25%;
+}
+
+.nav-item:hover, .nav-item a:hover{
+    cursor: pointer;
+    color: lightblue;
+}
+
+.nav li:nth-child(3){
+    // position: absolute;
+    background: $primary-color;
+    height: 70px;
+    width: 70px;
+    top: -40%;
+    border: 6px solid #fff;
+    border-radius: 50%;
+    font-size: 2rem;
+    transform: translateY(-40px);
+}
+
+.nav-item a{
+    text-decoration: none;
+    width: 100%;
+    color: #fff;
+    display: inline-block;
+}
