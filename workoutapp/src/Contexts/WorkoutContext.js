@@ -7,10 +7,16 @@ export function WorkoutProvider({children}){
     const [workout, setWorkout] = useState([])
 
 
+
+
     let workoutJson = {
         workoutName,
         workout,
     }
+
+    useEffect(() => {
+        localStorage.setItem("activeWorkout", JSON.stringify(workoutJson))
+    }, [workoutJson]);
 
     return <WorkoutContext.Provider value = {{setWorkout, setWorkoutName, workoutJson}}>{children}</WorkoutContext.Provider>
 }

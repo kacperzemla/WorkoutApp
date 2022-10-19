@@ -72,7 +72,7 @@ app.post("/api/createPlan", async (req, res) => {
 
   plan.save((err) => {
     if(err){
-      return handleError(err)
+      console.log(err)
     }
   });
 
@@ -125,6 +125,34 @@ app.post("/api/saveWorkout", async (req,res) => {
 
   return res.json({ status: "ok"})
 })
+
+
+
+app.get("/api/getAllWorkouts/:id", async (req, res ) => {
+  const userID = req.params.id;
+
+  let workouts = await Workout.find({user: userID}).exec();
+
+  if(!workouts){
+    return res.status(404).json({message: "No workouts found"})
+  }
+
+  return res.status(200).json({workouts: workouts})
+})
+
+app.get("/api/workout/:id", async (req, res) => {
+  const workoutID = req.params.id;
+
+  let workout = await Plan.findById(workoutID);
+
+  if(!workout){
+    return res.status(404).json({message: "No plan found"});
+  }
+
+  return res.status(200).json({plan: plan})
+})
+
+
 
 
 

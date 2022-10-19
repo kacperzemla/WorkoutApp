@@ -8,7 +8,7 @@ import { useContext } from "react";
 import Button from "./Reusable/Button";
 
 export default function CreateWorkout() {
-  const { setWorkout, setWorkoutName, workoutJson} = useContext(WorkoutContext)
+  const { setWorkout, setWorkoutName, workoutJson} = useContext(WorkoutContext);
   const [json, setJson] = useState({});
   const [time, setTime] = useState(0);
   const [exerciseBlock, setExerciseBlock] = useState([{ exerciseName: "" }]);
@@ -21,6 +21,7 @@ export default function CreateWorkout() {
   useEffect(() => {
     console.log(JSON.stringify(workoutJson));
     setWorkout(json);
+    localStorage.setItem("activeWorkout",JSON.stringify(workoutJson));
   }, [json])
 
   function handleFieldsChange(fieldId, value) {

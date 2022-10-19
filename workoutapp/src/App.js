@@ -16,6 +16,8 @@ import { PlanProvider } from "./Contexts/PlanContext";
 import { WorkoutProvider } from "./Contexts/WorkoutContext";
 import PlanDetails from "./PlanDetails";
 import Diet from "./Diet";
+import Home from "./Home";
+import ChooseWorkoutFromPlan from "./ChooseWorkoutFromPlan";
 
 function App() {
   const { auth } = useContext(AuthContext);
@@ -24,10 +26,14 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<PrivateRoutes />}>
+          <Route path="/" element={<Home />} />
           <Route path="/plans" element={<Plans />} />
           <Route path="/plans/:id" element={<PlanDetails />} />
           <Route path="/startTraining" element={<StartTraining />} />
           <Route path="/diet" element={<Diet/> } />
+          <Route path="/createWorkoutFromPlan" element={<ChooseWorkoutFromPlan />} />
+
+
           <Route
             path="/createPlan"
             element={

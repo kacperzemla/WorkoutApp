@@ -6,7 +6,7 @@ import './Styles/functional.css';
 export default function StartTraining(){
     return <div className="container-vertical">
         <Title title={"Start your training"} />
-        <Link to ="/createPlan" className="button-secondary">From plan</Link>
+        <Link to ="/createWorkoutFromPlan" className="button-secondary">From plan</Link>
         <Link to ="/createWorkout" className="button-secondary">New workout</Link>
         <Link to ="/createPlan" className="button-default">Create new plan</Link>
     </div>
