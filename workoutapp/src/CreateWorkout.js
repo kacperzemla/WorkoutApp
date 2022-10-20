@@ -8,10 +8,18 @@ import { useContext } from "react";
 import Button from "./Reusable/Button";
 
 export default function CreateWorkout() {
-  const { setWorkout, setWorkoutName, workoutJson} = useContext(WorkoutContext);
-  const [json, setJson] = useState({});
+  const { setWorkout, setWorkoutName, workoutJson } = useContext(WorkoutContext);
+  const [jsonWorkout, setJsonWorkout] = useState(() => {
+    const saved = localStorage.getItem("activeWorkout");
+    return saved ? JSON.parse(saved).workout : {};
+  });
   const [time, setTime] = useState(0);
-  const [exerciseBlock, setExerciseBlock] = useState([{ exerciseName: "" }]);
+
+  const [exerciseBlock, setExerciseBlock] = useState(() => {
+    const saved = localStorage.getItem("activeWorkout");
+    return saved ? formatWorkoutFromJsonToArray(JSON.parse(saved).workout) : [{ exerciseName: "" }];
+  });
+
   const userID = localStorage.getItem("userID");
 
   useEffect(() => {
@@ -19,13 +27,11 @@ export default function CreateWorkout() {
   }, []);
 
   useEffect(() => {
-    console.log(JSON.stringify(workoutJson));
-    setWorkout(json);
-    localStorage.setItem("activeWorkout",JSON.stringify(workoutJson));
-  }, [json])
+    setWorkout(jsonWorkout);
+  }, [jsonWorkout]);
 
   function handleFieldsChange(fieldId, value) {
-    setJson({ ...json, [fieldId]: value });
+    setJsonWorkout({ ...jsonWorkout, [fieldId]: value });
   }
 
   function addExercise() {
@@ -33,18 +39,26 @@ export default function CreateWorkout() {
     setExerciseBlock([...exerciseBlock, newExercise]);
   }
 
+  function formatWorkoutFromJsonToArray(workout){
+    let array = [];
+    for (const key in workout){
+      array.push(workout[key]);
+    }
+    return array;
+  }
+
   async function saveWorkout(event) {
     event.preventDefault();
 
     const response = await fetch("http://localhost:1337/api/saveWorkout", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-            userID,
-            workoutJson,
-        }),
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        userID,
+        workoutJson,
+      }),
     });
 
     const data = await response.json();
@@ -61,12 +75,13 @@ export default function CreateWorkout() {
   };
 
   return (
-    <form className="container-vertical" onSubmit = {saveWorkout}>
+    <form className="container-vertical" onSubmit={saveWorkout}>
       <p>{time}</p>
       <Title title="Create new workout" />
       <Input
         placeholder="Name"
         onChange={(event) => setWorkoutName(event.target.value)}
+        value={workoutJson.workoutName || ""}
       />
       {exerciseBlock.map((exercise, index) => {
         return (
@@ -74,6 +89,7 @@ export default function CreateWorkout() {
             key={index}
             id={index}
             onChange={handleFieldsChange}
+            exercise={exercise}
           />
         );
       })}

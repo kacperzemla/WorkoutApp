@@ -10,7 +10,6 @@ export default function Diet() {
 
   useEffect(() => {
     calculateIntake();
-    console.log(calories);
   }, [weight, radio]);
 
   function calculateIntake() {
