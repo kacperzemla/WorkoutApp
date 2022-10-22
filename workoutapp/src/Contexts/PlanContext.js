@@ -17,7 +17,7 @@ export function PlanProvider({ children }) {
   //   console.log(JSON.stringify(planJson))
   // }, [plan])
 
-  return <PlanContext.Provider value={{setPlanName, setPlan, plan, planJson}}>{children}</PlanContext.Provider>;
+  return <PlanContext.Provider value={{setPlanName, setPlan, plan, planJson, planName}}>{children}</PlanContext.Provider>;
 }
 
 export default PlanContext;

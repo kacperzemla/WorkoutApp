@@ -30,9 +30,16 @@ function App() {
           <Route path="/plans" element={<Plans />} />
           <Route path="/plans/:id" element={<PlanDetails />} />
           <Route path="/startTraining" element={<StartTraining />} />
-          <Route path="/diet" element={<Diet/> } />
-          <Route path="/createWorkoutFromPlan" element={<ChooseWorkoutFromPlan />} />
+          <Route path="/diet" element={<Diet />} />
 
+          <Route
+            path="/createWorkoutFromPlan"
+            element={
+              <WorkoutProvider>
+                <ChooseWorkoutFromPlan />
+              </WorkoutProvider>
+            }
+          />
 
           <Route
             path="/createPlan"
@@ -51,7 +58,6 @@ function App() {
               </WorkoutProvider>
             }
           />
-
         </Route>
         <Route path="/login" element={<PublicRoutes />}>
           <Route path="/login" element={<Login />} />

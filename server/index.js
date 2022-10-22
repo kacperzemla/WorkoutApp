@@ -131,7 +131,7 @@ app.post("/api/saveWorkout", async (req,res) => {
 app.get("/api/getAllWorkouts/:id", async (req, res ) => {
   const userID = req.params.id;
 
-  let workouts = await Workout.find({user: userID}).exec();
+  let workouts = await Workout.find({user: userID}).sort({createdAt: 'desc'}).exec();
 
   if(!workouts){
     return res.status(404).json({message: "No workouts found"})

@@ -8,7 +8,8 @@ import { useContext } from "react";
 import Button from "./Reusable/Button";
 
 export default function CreateWorkout() {
-  const { setWorkout, setWorkoutName, workoutJson } = useContext(WorkoutContext);
+  const { setWorkout, setWorkoutName, workoutJson } =
+    useContext(WorkoutContext);
   const [jsonWorkout, setJsonWorkout] = useState(() => {
     const saved = localStorage.getItem("activeWorkout");
     return saved ? JSON.parse(saved).workout : {};
@@ -17,13 +18,16 @@ export default function CreateWorkout() {
 
   const [exerciseBlock, setExerciseBlock] = useState(() => {
     const saved = localStorage.getItem("activeWorkout");
-    return saved ? formatWorkoutFromJsonToArray(JSON.parse(saved).workout) : [{ exerciseName: "" }];
+    return saved
+      ? formatWorkoutFromJsonToArray(JSON.parse(saved).workout)
+      : [{ exerciseName: "" }];
   });
 
   const userID = localStorage.getItem("userID");
 
   useEffect(() => {
     timer();
+    console.log();
   }, []);
 
   useEffect(() => {
@@ -39,9 +43,9 @@ export default function CreateWorkout() {
     setExerciseBlock([...exerciseBlock, newExercise]);
   }
 
-  function formatWorkoutFromJsonToArray(workout){
+  function formatWorkoutFromJsonToArray(workout) {
     let array = [];
-    for (const key in workout){
+    for (const key in workout) {
       array.push(workout[key]);
     }
     return array;
@@ -61,7 +65,22 @@ export default function CreateWorkout() {
       }),
     });
 
-    const data = await response.json();
+    // const data = await response.json();
+
+    setWorkout({
+      0: {
+        exerciseName: "",
+        sets: [
+          {
+            reps: "",
+
+            weights: "",
+          },
+        ],
+      },
+    });
+    setWorkoutName("");
+    window.location.reload(false);
   }
 
   const timer = () => {

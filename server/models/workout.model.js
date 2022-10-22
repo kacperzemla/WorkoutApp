@@ -6,7 +6,10 @@ const Workout = new mongoose.Schema({
     workout: Schema.Types.Mixed,
     user: {type: Schema.Types.ObjectId, ref: "UserData"}
 },
-{collection: 'user-workouts'}
+{
+    collection: 'user-workouts',
+    timestamps: true
+},
 )
 
 const model = mongoose.model('UserWorkout', Workout);

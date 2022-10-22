@@ -136,4 +136,12 @@
 
 .activeWorkout {
   background-color: lightblue;
+}
+
+.container-exercise__paragraph {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  color: #2b2b2b;
+  text-align: center;
 }/*# sourceMappingURL=functional.css.map */
