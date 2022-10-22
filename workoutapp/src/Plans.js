@@ -15,6 +15,7 @@ export default function Plans() {
       });
       const data = await res.json();
       setPlans(data.plans);
+      console.log(JSON.stringify(data.plans))
 
     }
 
@@ -26,11 +27,16 @@ export default function Plans() {
     navigate(`/plans/${id}`);
   }
 
+  const countNumberOfExercises = (plan) => {
+    return Object.keys(plan).length;
+  }
+
 
   return <div className="container-vertical">
     <Title title={"Your plans"} />
+    
     {plans && plans.map((plan, index) => {
-      return <WorkoutContainer name={plan.planName}  text={"elo"} key={index} onClick = {() => handleClick(plan._id)}/>
+      return <WorkoutContainer name={plan.planName}  text={countNumberOfExercises(plan.plan)} key={index} onClick = {() => handleClick(plan._id)}/>
     }) }
   </div>;
 }

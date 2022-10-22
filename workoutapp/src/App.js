@@ -15,6 +15,7 @@ import CreateWorkout from "./CreateWorkout";
 import { PlanProvider } from "./Contexts/PlanContext";
 import { WorkoutProvider } from "./Contexts/WorkoutContext";
 import PlanDetails from "./PlanDetails";
+import WorkoutDetails from "./WorkoutDetails";
 import Diet from "./Diet";
 import Home from "./Home";
 import ChooseWorkoutFromPlan from "./ChooseWorkoutFromPlan";
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/plans" element={<Plans />} />
           <Route path="/plans/:id" element={<PlanDetails />} />
+          <Route path ="/workouts/:id" element={<WorkoutDetails />} />
           <Route path="/startTraining" element={<StartTraining />} />
           <Route path="/diet" element={<Diet />} />
 

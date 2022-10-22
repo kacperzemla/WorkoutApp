@@ -141,3 +141,20 @@
     color: $primary-color;
     text-align: center;
 }
+
+.details-title-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    width: 80%;
+}
+
+.details-title-container h1{
+    margin-top: 0;
+}
+
+.details-title-container svg:hover{
+    cursor: pointer;
+    color: $secondary-color;
+}

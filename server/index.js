@@ -143,13 +143,25 @@ app.get("/api/getAllWorkouts/:id", async (req, res ) => {
 app.get("/api/workout/:id", async (req, res) => {
   const workoutID = req.params.id;
 
-  let workout = await Plan.findById(workoutID);
+  let workout = await Workout.findById(workoutID);
 
   if(!workout){
     return res.status(404).json({message: "No plan found"});
   }
 
-  return res.status(200).json({plan: plan})
+  return res.status(200).json({workout: workout})
+})
+
+app.delete("/api/deletePlan/:id", async (req, res) => {
+  const workoutID = req.params.id;
+
+  const workout = await Plan.findOneAndDelete({_id: workoutID});
+
+  if(!workout) {
+    return res.status(400).json({error: 'No such plan'})
+  }
+
+  res.status(200).json(workout);
 })
 
 

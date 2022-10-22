@@ -14,6 +14,7 @@ export function AuthProvider({children}){
     const [auth, setAuth] = useState(isLoggedIn());
     const [user, setUser] = useState(null);
 
+
     useEffect(() =>{
         setAuth(isLoggedIn())
         setUser(isLoggedIn())

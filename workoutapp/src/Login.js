@@ -32,6 +32,7 @@ export default function Login() {
     if (data.user) {
       localStorage.setItem("token", data.user);
       localStorage.setItem("userID", data.userID);
+
       setAuth(true);
       alert("Login successful");
       navigate('/createPlan');

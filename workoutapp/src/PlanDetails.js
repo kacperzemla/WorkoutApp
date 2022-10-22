@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Title from "./Reusable/Title";
 import "./Styles/functional.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function PlanDetails() {
+  const navigate = useNavigate();
   const id = useParams().id;
   const [planDetails, setPlanDetails] = useState(null);
 
@@ -27,15 +31,33 @@ export default function PlanDetails() {
     return array;
   }
 
+  const handleDelete = async () => {
+    const response = await fetch(`http://localhost:1337/api/deletePlan/${id}`, {
+      method: 'DELETE'
+    })
+
+    const json = await response.json();
+
+    if(response.ok){
+      navigate('/plans');
+    }
+  }
+
   return (
     <div className="container-vertical">
-      {planDetails && <Title title={planDetails.planName} />}
+      <div className="details-title-container">
+        {planDetails && <Title title={planDetails.planName} />}
+        <FontAwesomeIcon icon={faTrash} onClick = { handleDelete }/>
+      </div>
+
       {/* {planDetails && JSON.stringify(planDetails)} */}
       {planDetails &&
-        formatWorkoutFromJsonToArray(planDetails.plan).map((exercise) => {
+        formatWorkoutFromJsonToArray(planDetails.plan).map((exercise, index) => {
           return (
-            <div className="container-exercise container-vertical">
-              <p className="container-exercise__paragraph">{exercise.exerciseName}</p>
+            <div className="container-exercise container-vertical" key = {index}>
+              <p className="container-exercise__paragraph">
+                {exercise.exerciseName}
+              </p>
               <ul className="container-vertical set-list">
                 {exercise.sets.map((set, index) => {
                   return (
