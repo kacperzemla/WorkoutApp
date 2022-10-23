@@ -161,4 +161,20 @@
 .details-title-container svg:hover {
   cursor: pointer;
   color: lightblue;
+}
+
+.intake-container {
+  width: 80%;
+  background-color: #F2F2F2;
+  padding: 2rem 0;
+  border-radius: 20px;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.progress-bar-container {
+  width: 150px;
+  height: 150px;
 }/*# sourceMappingURL=functional.css.map */

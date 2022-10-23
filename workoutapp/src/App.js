@@ -19,6 +19,7 @@ import WorkoutDetails from "./WorkoutDetails";
 import Diet from "./Diet";
 import Home from "./Home";
 import ChooseWorkoutFromPlan from "./ChooseWorkoutFromPlan";
+import Profile from "./Profile";
 
 function App() {
   const { auth } = useContext(AuthContext);
@@ -33,6 +34,7 @@ function App() {
           <Route path ="/workouts/:id" element={<WorkoutDetails />} />
           <Route path="/startTraining" element={<StartTraining />} />
           <Route path="/diet" element={<Diet />} />
+          <Route path="/profile" element = { <Profile /> } />
 
           <Route
             path="/createWorkoutFromPlan"

@@ -3,7 +3,8 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require('./models/user.model');
 const Plan = require('./models/plan.model');
-const Workout = require('./models/workout.model')
+const Workout = require('./models/workout.model');
+const UserSettings = require(`./models/userSettings.model`);
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -162,6 +163,41 @@ app.delete("/api/deletePlan/:id", async (req, res) => {
   }
 
   res.status(200).json(workout);
+})
+
+app.post("/api/saveSettings/:id", async (req, res) => {
+  const userID = req.body.userID;
+  const weight = req.body.weight;
+  const goal = req.body.goal;
+
+  const user = await User.findById(userID);
+
+  console.log(weight)
+  console.log(toString(weight))
+  const respons = await UserSettings.updateOne(
+    { user: user},
+    { $set: {weight: weight.toString(), goal: goal}},
+    {upsert: true}
+    );
+
+  if(respons){
+    return res.status(200).json({message: 'working'})
+  }
+
+  return res.status(400).json({error: 'Something went wrong'})
+})
+
+app.get("/api/userSettings/:id", async (req, res) => {
+  const userID = req.params.id;
+
+  const userSettings = await UserSettings.findOne({user: userID});
+
+
+  if(!userSettings){
+    return res.status(404).json({error: "no user settings found"});
+  }
+
+  return res.status(200).json({userSettings: userSettings});
 })
 
 

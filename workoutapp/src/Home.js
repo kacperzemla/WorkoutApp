@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import WorkoutContainer from "./Reusable/WorkoutContainer";
 import "./Styles/functional.css";
 import jwtDecode from "jwt-decode";
@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <div className="container-vertical">
       <Title title={`Hello, ${user}`} />
-      {activeWorkout.workoutName && (
+      {activeWorkout && activeWorkout.workoutName && (
         <div className="container-vertical">
           <h2>Active workout</h2>
           <WorkoutContainer

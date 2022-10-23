@@ -34,9 +34,9 @@ export default function Plans() {
 
   return <div className="container-vertical">
     <Title title={"Your plans"} />
-    
+    <Title title={"Prepared plans"} />
     {plans && plans.map((plan, index) => {
-      return <WorkoutContainer name={plan.planName}  text={countNumberOfExercises(plan.plan)} key={index} onClick = {() => handleClick(plan._id)}/>
+      return <WorkoutContainer name={plan.planName}  text={`${countNumberOfExercises(plan.plan)} ${countNumberOfExercises(plan.plan) > 1 ? 'exercises' : 'exercise'}`} key={index} onClick = {() => handleClick(plan._id)}/>
     }) }
   </div>;
 }

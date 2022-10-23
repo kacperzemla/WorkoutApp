@@ -31,7 +31,9 @@ export default function Navbar() {
           </Link>
         </li>
         <li className="nav-item">
-          <FontAwesomeIcon icon={faUser} />
+          <Link to="/profile">
+            <FontAwesomeIcon icon={faUser} />
+          </Link>
         </li>
       </ul>
     </nav>

@@ -35,7 +35,7 @@ export default function Login() {
 
       setAuth(true);
       alert("Login successful");
-      navigate('/createPlan');
+      navigate('/');
     } else {
       alert("Please check your username and password");
     }
