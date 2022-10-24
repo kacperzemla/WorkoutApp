@@ -5,6 +5,7 @@ const User = require('./models/user.model');
 const Plan = require('./models/plan.model');
 const Workout = require('./models/workout.model');
 const UserSettings = require(`./models/userSettings.model`);
+const Meal = require(`./models/meal.model`);
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -172,8 +173,6 @@ app.post("/api/saveSettings/:id", async (req, res) => {
 
   const user = await User.findById(userID);
 
-  console.log(weight)
-  console.log(toString(weight))
   const respons = await UserSettings.updateOne(
     { user: user},
     { $set: {weight: weight.toString(), goal: goal}},
@@ -198,6 +197,42 @@ app.get("/api/userSettings/:id", async (req, res) => {
   }
 
   return res.status(200).json({userSettings: userSettings});
+})
+
+app.post("/api/createMeal", async (req, res) => {
+  const userID = req.body.userID;
+
+  const user = await User.findById(userID);
+
+  const meal = new Meal({
+    mealName: req.body.mealName,
+    proteins: req.body.proteins,
+    carbs: req.body.carbs,
+    fats: req.body.fats,
+    time: req.body.time,
+  })
+
+  meal.save((err) => {
+    if(err){
+      return console.log(err);
+    }
+  });
+
+  return res.json({ status: "ok"})
+})
+
+app.get("/api/meals", async (req, res) => {
+  const userID = req.params.id;
+
+  const user = await User.findById(userID);
+
+  const meals = await Meals.find({user: user});
+
+  if(!meals){
+    res.status(404).json({message: "Couldnt find any meals"});
+  }
+
+  res.status(200).json({meals: meals});
 })
 
 
