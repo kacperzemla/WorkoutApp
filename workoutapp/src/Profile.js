@@ -18,7 +18,7 @@ export default function Profile() {
         }
       );
       const data = await res.json();
-      console.log(JSON.stringify(data.userSettings))
+
       setWeight(data.userSettings.weight);
       setRadio(data.userSettings.goal);
     };

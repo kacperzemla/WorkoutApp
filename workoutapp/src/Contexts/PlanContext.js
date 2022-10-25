@@ -13,9 +13,6 @@ export function PlanProvider({ children }) {
     plan,
   };
 
-  // useEffect(() => {
-  //   console.log(JSON.stringify(planJson))
-  // }, [plan])
 
   return <PlanContext.Provider value={{setPlanName, setPlan, plan, planJson, planName}}>{children}</PlanContext.Provider>;
 }

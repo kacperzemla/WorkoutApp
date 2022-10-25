@@ -210,6 +210,7 @@ app.post("/api/createMeal", async (req, res) => {
     carbs: req.body.carbs,
     fats: req.body.fats,
     time: req.body.time,
+    user: user,
   })
 
   meal.save((err) => {
@@ -221,12 +222,12 @@ app.post("/api/createMeal", async (req, res) => {
   return res.json({ status: "ok"})
 })
 
-app.get("/api/meals", async (req, res) => {
+app.get("/api/meals/:id", async (req, res) => {
   const userID = req.params.id;
 
   const user = await User.findById(userID);
 
-  const meals = await Meals.find({user: user});
+  const meals = await Meal.find({user: user});
 
   if(!meals){
     res.status(404).json({message: "Couldnt find any meals"});

@@ -8,16 +8,18 @@ import { useContext } from "react";
 import Button from "./Reusable/Button";
 
 export default function CreateWorkout() {
+  const saved = localStorage.getItem("activeWorkout");
   const { setWorkout, setWorkoutName, workoutJson } =
     useContext(WorkoutContext);
   const [jsonWorkout, setJsonWorkout] = useState(() => {
-    const saved = localStorage.getItem("activeWorkout");
+    
     return saved ? JSON.parse(saved).workout : {};
   });
   const [time, setTime] = useState(0);
 
   const [exerciseBlock, setExerciseBlock] = useState(() => {
-    const saved = localStorage.getItem("activeWorkout");
+    // const saved = localStorage.getItem("activeWorkout");
+    console.log(saved)
     return saved
       ? formatWorkoutFromJsonToArray(JSON.parse(saved).workout)
       : [{ exerciseName: "" }];
@@ -27,7 +29,6 @@ export default function CreateWorkout() {
 
   useEffect(() => {
     timer();
-    console.log();
   }, []);
 
   useEffect(() => {

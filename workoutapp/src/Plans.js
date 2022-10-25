@@ -15,8 +15,6 @@ export default function Plans() {
       });
       const data = await res.json();
       setPlans(data.plans);
-      console.log(JSON.stringify(data.plans))
-
     }
 
     fetchData();

@@ -162,7 +162,7 @@
 
 //diet
 
-.intake-container {
+.intake-container, .meals-container {
     width: 80%;
     background-color: #F2F2F2;
     padding: 2rem 0;
@@ -261,3 +261,7 @@
     width: 70%;
 }
 
+.meals-container .title{
+    margin-top: 0;
+    align-self: left;
+}

@@ -18,10 +18,6 @@ function ExerciseWorkoutContainer({ onChange, id, exercise }) {
     return saved || "";
   });
 
-  useEffect(() => {
-    console.log(exercise);
-  }, []);
-
   const handleChange = (index, event) => {
     let data = [...inputFields];
     data[index][event.target.name] = event.target.value;
@@ -87,6 +83,7 @@ function ExerciseWorkoutContainer({ onChange, id, exercise }) {
           text="+"
           className="button-default set-list-button"
           onClick={() => addFields()}
+          type="button"
         />
       </ul>
     </div>

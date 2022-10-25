@@ -32,22 +32,17 @@ export default function Diet() {
     };
 
     const fetchMeals = async () => {
-      const res = await fetch(
-        `http://localhost:1337/api/meals/${userID}`,
-        {
-          method: "GET",
-        }
-      );
+      const res = await fetch(`http://localhost:1337/api/meals/${userID}`, {
+        method: "GET",
+      });
       const data = await res.json();
-
+      console.log(JSON.stringify(data));
+      setMeals(data.meals);
     };
 
     fetchUserSettings();
+    fetchMeals();
   }, []);
-
-  useEffect(() => {
-    console.log(time)
-  }, [time])
 
   useEffect(() => {
     calculateIntake();
@@ -68,7 +63,14 @@ export default function Diet() {
     }
   }
 
-  async function addMeal(event){
+  function calculateConsumedCalories(meals){
+    let kcal = 0;
+    meals.forEach((meal) => {
+
+    })
+  }
+
+  async function addMeal(event) {
     event.preventDefault();
     const req = await fetch("http://localhost:1337/api/createMeal", {
       method: "POST",
@@ -83,7 +85,7 @@ export default function Diet() {
         fats,
         time,
       }),
-    })
+    });
 
     const data = req.json();
     setActive(false);
@@ -116,14 +118,38 @@ export default function Diet() {
         className="button-default"
         onClick={() => setActive(true)}
       />
-      <div className="intake-container">
-        <p>Breakfast</p>
+      <div className="meals-container container-vertical">
+        <Title title="Breakfast" />
+        <div className="container-vertical">
+          {meals &&
+            meals
+              .filter((meal) => meal.time === "Breakfast")
+              .map((meal) => {
+                return <div>{meal.mealName}</div>;
+              })}
+        </div>
       </div>
-      <div className="intake-container">
-        <p>Lunch</p>
+      <div className="meals-container container-vertical">
+        <Title title="Lunch" />
+        <div className="container-vertical">
+          {meals &&
+            meals
+              .filter((meal) => meal.time === "Lunch")
+              .map((meal) => {
+                return <div>{meal.mealName}</div>;
+              })}
+        </div>
       </div>
-      <div className="intake-container">
-        <p>Dinner</p>
+      <div className="meals-container container-vertical">
+        <div className="container-vertical">
+          <Title title="Dinner" />
+          {meals &&
+            meals
+              .filter((meal) => meal.time === "Dinner")
+              .map((meal) => {
+                return <div>{meal.mealName}</div>;
+              })}
+        </div>
       </div>
       {active && (
         <div className="bg-modal">
@@ -137,16 +163,42 @@ export default function Diet() {
               X
             </button>
             <form>
-              <input placeholder="Name" className="modal-content-name" value={mealName} onChange={(e) => setMealName(e.target.value)}/>
-              <input placeholder="Proteins" type="number"  value={proteins} onChange={(e) => setProteins(e.target.value)}/>
-              <input placeholder="Carbs" type="number" value={carbs} onChange={(e) => setCarbs(e.target.value)}/>
-              <input placeholder="Fats" type="number" value={fats} onChange={(e) => setFats(e.target.value)}/>
-              <select name="type" id="type" required value={time} onChange={(e) => setTime(e.target.value)}>
+              <input
+                placeholder="Name"
+                className="modal-content-name"
+                value={mealName}
+                onChange={(e) => setMealName(e.target.value)}
+              />
+              <input
+                placeholder="Proteins"
+                type="number"
+                value={proteins}
+                onChange={(e) => setProteins(e.target.value)}
+              />
+              <input
+                placeholder="Carbs"
+                type="number"
+                value={carbs}
+                onChange={(e) => setCarbs(e.target.value)}
+              />
+              <input
+                placeholder="Fats"
+                type="number"
+                value={fats}
+                onChange={(e) => setFats(e.target.value)}
+              />
+              <select
+                name="type"
+                id="type"
+                required
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+              >
                 <option value="Breakfast">Breakfast</option>
                 <option value="Lunch">Lunch</option>
                 <option value="Dinner">Dinner</option>
               </select>
-              <Button className="button-default" text="Add" onClick={addMeal}/>
+              <Button className="button-default" text="Add" onClick={addMeal} />
             </form>
           </div>
         </div>

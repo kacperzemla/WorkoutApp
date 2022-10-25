@@ -10,9 +10,9 @@ export default function ChooseWorkoutFromPlan() {
   const navigate = useNavigate();
   const userID = localStorage.getItem("userID");
   const [plans, setPlans ] = useState([]);
-  const [isActiveWorkout, setIsActiveWorkout] = useState(() => {
-    return workoutName.length > 0 ? true : false;
-  });
+  // const [isActiveWorkout, setIsActiveWorkout] = useState(() => {
+  //   return workoutName.length > 0 ? true : false;
+  // });
 
 
   useEffect(() => {

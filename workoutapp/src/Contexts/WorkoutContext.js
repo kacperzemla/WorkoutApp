@@ -18,9 +18,6 @@ export function WorkoutProvider({ children }) {
     workout,
   };
 
-  useEffect(() => {
-    console.log(workoutName);
-  }, [workoutName]);
 
   useEffect(() => {
     localStorage.setItem("activeWorkout", JSON.stringify(workoutJson));
