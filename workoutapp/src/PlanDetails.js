@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 
-export default function PlanDetails() {
+export default function PlanDetails({prepared}) {
   const navigate = useNavigate();
   const id = useParams().id;
   const [planDetails, setPlanDetails] = useState(null);
@@ -19,8 +19,16 @@ export default function PlanDetails() {
     setPlanDetails(data.plan);
   };
 
+  const fetchPreparedPlanDetails = async () => {
+    const res = await fetch(`http://localhost:1337/api/preparedPlan/${id}`, {
+      method: "GET",
+    });
+    const data = await res.json();
+    setPlanDetails(data.plan);
+  };
+
   useEffect(() => {
-    fetchDetails();
+    prepared ? fetchPreparedPlanDetails() : fetchDetails();
   }, []);
 
   function formatWorkoutFromJsonToArray(workout) {
@@ -47,7 +55,7 @@ export default function PlanDetails() {
     <div className="container-vertical">
       <div className="details-title-container">
         {planDetails && <Title title={planDetails.planName} />}
-        <FontAwesomeIcon icon={faTrash} onClick = { handleDelete }/>
+        {!prepared && <FontAwesomeIcon icon={faTrash} onClick = { handleDelete }/>}
       </div>
 
       {/* {planDetails && JSON.stringify(planDetails)} */}

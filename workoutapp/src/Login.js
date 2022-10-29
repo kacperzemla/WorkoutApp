@@ -51,6 +51,7 @@ export default function Login() {
         <Input
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
+          type="password"
         />
         <Button text="Login" className="button-default" />
       </form>

@@ -6,6 +6,7 @@ const Plan = require('./models/plan.model');
 const Workout = require('./models/workout.model');
 const UserSettings = require(`./models/userSettings.model`);
 const Meal = require(`./models/meal.model`);
+const PreparedPlan = require('./models/preparedPlan.model')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -236,6 +237,27 @@ app.get("/api/meals/:id", async (req, res) => {
   res.status(200).json({meals: meals});
 })
 
+app.get("/api/preparedPlans", async(req, res) => {
+  const plans = await PreparedPlan.find();
+
+  if(!plans){
+    res.status(404).json({message: "Couldnt find any prepared plans"});
+  }
+
+  res.status(200).json({preparedPlans: plans})
+})
+
+app.get("/api/preparedPlan/:id", async(req, res) => {
+  const planID = req.params.id;
+
+  let plan = await PreparedPlan.findById(planID);
+
+  if(!plan){
+    return res.status(404).json({message: "No plan found"});
+  }
+
+  return res.status(200).json({plan: plan})
+})
 
 
 

@@ -39,7 +39,7 @@ export default function Register() {
       <form className="form" onSubmit={registerUser}>
         <Input placeholder="Username" onChange={(e) => setUsername(e.target.value)}/>
         <Input placeholder="Email address" onChange={(e) => setEmail(e.target.value)} />
-        <Input placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+        <Input placeholder="Password" onChange={(e) => setPassword(e.target.value)} type="password"/>
         <Button text="Register" className="button-default" />
       </form>
     </div>

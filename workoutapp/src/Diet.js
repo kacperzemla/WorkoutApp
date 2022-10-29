@@ -63,11 +63,9 @@ export default function Diet() {
     }
   }
 
-  function calculateConsumedCalories(meals){
-    let kcal = 0;
-    meals.forEach((meal) => {
-
-    })
+  function calculateConsumedCalories(meal) {
+    let kcal = meal.proteins * 4 + meal.carbs * 4 + meal.fats * 9;
+    return kcal;
   }
 
   async function addMeal(event) {
@@ -89,6 +87,7 @@ export default function Diet() {
 
     const data = req.json();
     setActive(false);
+    window.location.reload(false);
   }
 
   return (
@@ -97,7 +96,7 @@ export default function Diet() {
       <div className="intake-container">
         <p>Consumed</p>
         <div className="progress-bar-container">
-          {calories && (
+          {calories !== 0 ? (
             <Progressbar
               input={30}
               pathWidth={16}
@@ -105,10 +104,12 @@ export default function Diet() {
               trailWidth={20}
               trailColor="#2b2b2b" // use a string for solid color.
               textStyle={{ fill: "#2b2b2b" }} // middle text style
-              customText={calories ? calories.toString() : "0"}
+              customText={calories ? calories.toString() : "You have to elo "}
             >
               {/* children goes here, an image for example. (optional) */}
             </Progressbar>
+          ) : (
+            <p>You have to set your weight and goal in profile settings</p>
           )}
         </div>
         <p>Remaining</p>
@@ -125,7 +126,18 @@ export default function Diet() {
             meals
               .filter((meal) => meal.time === "Breakfast")
               .map((meal) => {
-                return <div>{meal.mealName}</div>;
+                return (
+                  <div className="meals-container__meal">
+                    <span>{meal.mealName}</span>
+                    <div className="meal-nutritions">
+                      {" "}
+                      <span>{meal.proteins} P</span>
+                      <span>{meal.carbs} C</span>
+                      <span>{meal.fats} F</span>
+                      <span>{calculateConsumedCalories(meal)} kcal</span>
+                    </div>
+                  </div>
+                );
               })}
         </div>
       </div>
@@ -136,7 +148,17 @@ export default function Diet() {
             meals
               .filter((meal) => meal.time === "Lunch")
               .map((meal) => {
-                return <div>{meal.mealName}</div>;
+                return (
+                  <div className="meals-container__meal">
+                    <span>{meal.mealName}</span>
+                    <div className="meal-nutritions">
+                      <span>{meal.proteins} P</span>
+                      <span>{meal.carbs} C</span>
+                      <span>{meal.fats} F</span>
+                      <span>{calculateConsumedCalories(meal)} kcal</span>
+                    </div>
+                  </div>
+                );
               })}
         </div>
       </div>
@@ -147,7 +169,17 @@ export default function Diet() {
             meals
               .filter((meal) => meal.time === "Dinner")
               .map((meal) => {
-                return <div>{meal.mealName}</div>;
+                return (
+                  <div className="meals-container__meal">
+                    <span>{meal.mealName}</span>
+                    <div className="meal-nutritions">
+                      <span>{meal.proteins} P</span>
+                      <span>{meal.carbs} C</span>
+                      <span>{meal.fats} F</span>
+                      <span>{calculateConsumedCalories(meal)} kcal</span>
+                    </div>
+                  </div>
+                );
               })}
         </div>
       </div>

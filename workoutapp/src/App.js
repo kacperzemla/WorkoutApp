@@ -30,7 +30,8 @@ function App() {
         <Route path="/" element={<PrivateRoutes />}>
           <Route path="/" element={<Home />} />
           <Route path="/plans" element={<Plans />} />
-          <Route path="/plans/:id" element={<PlanDetails />} />
+          <Route path="/plans/:id" element={<PlanDetails prepared={false} />} />
+          <Route path="/preparedPlan/:id" element={<PlanDetails prepared={true}/>} />
           <Route path ="/workouts/:id" element={<WorkoutDetails />} />
           <Route path="/startTraining" element={<StartTraining />} />
           <Route path="/diet" element={<Diet />} />

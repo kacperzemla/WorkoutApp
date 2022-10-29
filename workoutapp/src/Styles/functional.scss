@@ -173,6 +173,27 @@
     justify-content: space-evenly;
 }
 
+.intake-container p{
+    font-size: 1.5rem;
+}
+
+.meals-container__meal{
+    font-size: 1.3rem;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.meal-nutritions{
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+}
+
+.meal-nutritions span{
+    font-weight: 700;
+}
+
 
 
 .progress-bar-container{
@@ -264,4 +285,8 @@
 .meals-container .title{
     margin-top: 0;
     align-self: left;
+}
+
+.activePlans{
+    color: red;
 }

@@ -63,7 +63,6 @@ export default function Home() {
       <h2>Workout history</h2>
       {workouts &&
         workouts.map((workout, index) => {
-          console.log(workout);
           return (
             <WorkoutContainer
               name={workout.workoutName}
