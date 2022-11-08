@@ -6,7 +6,8 @@ const Plan = require('./models/plan.model');
 const Workout = require('./models/workout.model');
 const UserSettings = require(`./models/userSettings.model`);
 const Meal = require(`./models/meal.model`);
-const PreparedPlan = require('./models/preparedPlan.model')
+const PreparedPlan = require('./models/preparedPlan.model');
+const Product = require('./models/product.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
@@ -257,6 +258,28 @@ app.get("/api/preparedPlan/:id", async(req, res) => {
   }
 
   return res.status(200).json({plan: plan})
+})
+
+app.get("/api/products", async(req, res) => {
+  let products = await Product.find();
+
+  if(!products){
+    res.status(404).json({message: "Couldnt find any prodcut"});
+  }
+
+  return res.status(200).json({products: products});
+})
+
+app.get("/api/product/:id", async(req, res) => {
+  const productID = req.params.id;
+
+  let product = await Product.findById(productID);
+
+  if(!product){
+    return res.status(404).json({message: "No product found"});
+  }
+
+  return res.status(200).json({product: product})
 })
 
 

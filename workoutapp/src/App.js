@@ -20,6 +20,7 @@ import Diet from "./Diet";
 import Home from "./Home";
 import ChooseWorkoutFromPlan from "./ChooseWorkoutFromPlan";
 import Profile from "./Profile";
+import AddMeal from "./AddMeal";
 
 function App() {
   const { auth } = useContext(AuthContext);
@@ -35,6 +36,7 @@ function App() {
           <Route path ="/workouts/:id" element={<WorkoutDetails />} />
           <Route path="/startTraining" element={<StartTraining />} />
           <Route path="/diet" element={<Diet />} />
+          <Route path="/product/:id" element={<AddMeal />} />
           <Route path="/profile" element = { <Profile /> } />
 
           <Route

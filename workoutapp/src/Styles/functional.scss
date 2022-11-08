@@ -287,6 +287,13 @@
     align-self: left;
 }
 
+//plans
+
+.container-plans p{
+    margin: 2rem;
+    cursor: pointer;
+}
+
 .activePlans{
-    color: red;
+    color: $secondary-color;
 }

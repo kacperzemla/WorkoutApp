@@ -4,9 +4,11 @@ import "./Styles/functional.css";
 import Progressbar from "react-js-progressbar";
 import Button from "./Reusable/Button";
 import Input from "./Reusable/Input";
+import { useNavigate } from "react-router-dom";
 
 export default function Diet() {
   const userID = localStorage.getItem("userID");
+  const navigate = useNavigate();
   const [calories, setCalories] = useState(0);
   const [weight, setWeight] = useState(0);
   const [radio, setRadio] = useState("");
@@ -17,6 +19,7 @@ export default function Diet() {
   const [fats, setFats] = useState("");
   const [time, setTime] = useState("Breakfast");
   const [meals, setMeals] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchUserSettings = async () => {
@@ -36,10 +39,19 @@ export default function Diet() {
         method: "GET",
       });
       const data = await res.json();
-      console.log(JSON.stringify(data));
       setMeals(data.meals);
     };
 
+    const fetchProducts = async () => {
+      const res = await fetch("http://localhost:1337/api/products", {
+        method: "GET",
+      });
+
+      const data = await res.json();
+      setProducts(data.products);
+    };
+
+    fetchProducts();
     fetchUserSettings();
     fetchMeals();
   }, []);
@@ -68,27 +80,31 @@ export default function Diet() {
     return kcal;
   }
 
-  async function addMeal(event) {
-    event.preventDefault();
-    const req = await fetch("http://localhost:1337/api/createMeal", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        userID,
-        mealName,
-        proteins,
-        carbs,
-        fats,
-        time,
-      }),
-    });
-
-    const data = req.json();
-    setActive(false);
-    window.location.reload(false);
+  function addMeal(id){
+    navigate(`/product/${id}`);
   }
+
+  // async function addMeal(event) {
+  //   event.preventDefault();
+  //   const req = await fetch("http://localhost:1337/api/createMeal", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       userID,
+  //       mealName,
+  //       proteins,
+  //       carbs,
+  //       fats,
+  //       time,
+  //     }),
+  //   });
+
+  //   const data = req.json();
+  //   setActive(false);
+  //   window.location.reload(false);
+  // }
 
   return (
     <div className="container-vertical">
@@ -125,12 +141,11 @@ export default function Diet() {
           {meals &&
             meals
               .filter((meal) => meal.time === "Breakfast")
-              .map((meal) => {
+              .map((meal, index) => {
                 return (
-                  <div className="meals-container__meal">
+                  <div className="meals-container__meal" key={index}>
                     <span>{meal.mealName}</span>
                     <div className="meal-nutritions">
-                      {" "}
                       <span>{meal.proteins} P</span>
                       <span>{meal.carbs} C</span>
                       <span>{meal.fats} F</span>
@@ -147,9 +162,9 @@ export default function Diet() {
           {meals &&
             meals
               .filter((meal) => meal.time === "Lunch")
-              .map((meal) => {
+              .map((meal, index) => {
                 return (
-                  <div className="meals-container__meal">
+                  <div className="meals-container__meal" key={index}>
                     <span>{meal.mealName}</span>
                     <div className="meal-nutritions">
                       <span>{meal.proteins} P</span>
@@ -168,9 +183,9 @@ export default function Diet() {
           {meals &&
             meals
               .filter((meal) => meal.time === "Dinner")
-              .map((meal) => {
+              .map((meal, index) => {
                 return (
-                  <div className="meals-container__meal">
+                  <div className="meals-container__meal" key={index}>
                     <span>{meal.mealName}</span>
                     <div className="meal-nutritions">
                       <span>{meal.proteins} P</span>
@@ -195,13 +210,36 @@ export default function Diet() {
               X
             </button>
             <form>
+              <select
+                name="type"
+                id="type"
+                required
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+              >
+                <option value="Breakfast">Breakfast</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Dinner">Dinner</option>
+              </select>
               <input
-                placeholder="Name"
+                placeholder="Search"
                 className="modal-content-name"
                 value={mealName}
                 onChange={(e) => setMealName(e.target.value)}
               />
-              <input
+              {products &&
+                products.map((product, index) => (
+                  <div className="container" key={index}>
+                    <p>{product.productName}</p>
+                    <Button
+                      className="button-default"
+                      text="Add"
+                      onClick={() => addMeal(product._id)}
+                      type="button"
+                    />
+                  </div>
+                ))}
+              {/* <input
                 placeholder="Proteins"
                 type="number"
                 value={proteins}
@@ -218,19 +256,9 @@ export default function Diet() {
                 type="number"
                 value={fats}
                 onChange={(e) => setFats(e.target.value)}
-              />
-              <select
-                name="type"
-                id="type"
-                required
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-              >
-                <option value="Breakfast">Breakfast</option>
-                <option value="Lunch">Lunch</option>
-                <option value="Dinner">Dinner</option>
-              </select>
-              <Button className="button-default" text="Add" onClick={addMeal} />
+              /> */}
+
+              {/* <Button className="button-default" text="Add" onClick={addMeal} /> */}
             </form>
           </div>
         </div>

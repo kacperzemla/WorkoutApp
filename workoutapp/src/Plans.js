@@ -2,6 +2,7 @@ import Title from "./Reusable/Title";
 import WorkoutContainer from "./Reusable/WorkoutContainer";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Styles/functional.css";
 
 export default function Plans() {
   const navigate = useNavigate();
@@ -39,8 +40,8 @@ export default function Plans() {
   };
 
   const handlePreparedPlanClick = (id) => {
-    navigate(`/preparedPlan/${id}`)
-  }
+    navigate(`/preparedPlan/${id}`);
+  };
 
   const countNumberOfExercises = (plan) => {
     return Object.keys(plan).length;
@@ -48,20 +49,20 @@ export default function Plans() {
 
   return (
     <div className="container-vertical">
-      <Title title={"Your plans"} />
-      <Title title={"Prepared plans"} />
-      <p
-        onClick={() => setIsActive(true)}
-        className={isActive ? "activePlans" : ""}
-      >
-        Yours Plans
-      </p>
-      <p
-        onClick={() => setIsActive(false)}
-        className={isActive ? "" : "activePlans"}
-      >
-        Prepared plans
-      </p>
+      <div className="container container-plans">
+        <p
+          onClick={() => setIsActive(true)}
+          className={isActive ? "activePlans title" : "title"}
+        >
+          Your Plans
+        </p>
+        <p
+          onClick={() => setIsActive(false)}
+          className={isActive ? "title" : "activePlans title"}
+        >
+          Prepared plans
+        </p>
+      </div>
       {plans &&
         isActive &&
         plans.map((plan, index) => {
