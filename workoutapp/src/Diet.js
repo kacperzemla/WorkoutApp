@@ -10,7 +10,7 @@ import { useContext } from "react";
 import MealContext from "./Contexts/MealContext";
 
 export default function Diet() {
-  const {setMeal} = useContext(MealContext);
+  const {setMeal, setTime, time} = useContext(MealContext);
   const userID = localStorage.getItem("userID");
   const navigate = useNavigate();
   const [calories, setCalories] = useState(0);
@@ -21,10 +21,10 @@ export default function Diet() {
   const [proteins, setProteins] = useState("");
   const [carbs, setCarbs] = useState("");
   const [fats, setFats] = useState("");
-  const [time, setTime] = useState("Breakfast");
   const [meals, setMeals] = useState([]);
   const [products, setProducts] = useState([]);
   const [apiMeals, setApiMeals] = useState([]);
+
 
   useEffect(() => {
     const fetchUserSettings = async () => {
@@ -59,6 +59,7 @@ export default function Diet() {
     fetchProducts();
     fetchUserSettings();
     fetchMeals();
+
   }, []);
 
   useEffect(() => {
@@ -82,7 +83,7 @@ export default function Diet() {
 
   function calculateConsumedCalories(meal) {
     let kcal = meal.proteins * 4 + meal.carbs * 4 + meal.fats * 9;
-    return kcal;
+    return kcal.toFixed(2);
   }
 
   function addMeal( meal) {

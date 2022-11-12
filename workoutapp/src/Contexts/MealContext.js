@@ -6,8 +6,9 @@ const MealContext = createContext();
 
 export function MealProvider({children}) {
     const [meal, setMeal] = useState({});
+    const [time, setTime] = useState("Breakfast");
 
-    return <MealContext.Provider value={{meal, setMeal}}>{children}</MealContext.Provider>
+    return <MealContext.Provider value={{meal, setMeal, time, setTime}}>{children}</MealContext.Provider>
 }
 
 export default MealContext;

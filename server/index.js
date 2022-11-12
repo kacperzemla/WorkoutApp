@@ -226,10 +226,13 @@ app.post("/api/createMeal", async (req, res) => {
 
 app.get("/api/meals/:id", async (req, res) => {
   const userID = req.params.id;
+  const today = new Date();
+  const startOfDay = new Date(today.setHours(0,0,0,0));
+  const endOfDay = new Date(today.setHours(23,59,59,999));
 
   const user = await User.findById(userID);
 
-  const meals = await Meal.find({user: user});
+  const meals = await Meal.find({user: user, createdAt:{$gte: startOfDay,$lt: endOfDay}});
 
   if(!meals){
     res.status(404).json({message: "Couldnt find any meals"});
