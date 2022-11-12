@@ -74,7 +74,7 @@ export default function Profile() {
           />
         </div>
         <div className="container-vertical">
-          <label>Normal</label>
+          <label>Reduction</label>
           <input
             type="radio"
             checked={radio === "reduction"}

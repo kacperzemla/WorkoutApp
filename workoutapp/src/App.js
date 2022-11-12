@@ -14,6 +14,7 @@ import PublicRoutes from "./PublicRoutes";
 import CreateWorkout from "./CreateWorkout";
 import { PlanProvider } from "./Contexts/PlanContext";
 import { WorkoutProvider } from "./Contexts/WorkoutContext";
+import { MealProvider } from "./Contexts/MealContext";
 import PlanDetails from "./PlanDetails";
 import WorkoutDetails from "./WorkoutDetails";
 import Diet from "./Diet";
@@ -35,8 +36,8 @@ function App() {
           <Route path="/preparedPlan/:id" element={<PlanDetails prepared={true}/>} />
           <Route path ="/workouts/:id" element={<WorkoutDetails />} />
           <Route path="/startTraining" element={<StartTraining />} />
-          <Route path="/diet" element={<Diet />} />
-          <Route path="/product/:id" element={<AddMeal />} />
+          <Route path="/diet" element={<MealProvider><Diet /></MealProvider>} />
+          <Route path="/addMeal" element={<MealProvider><AddMeal /></MealProvider>} />
           <Route path="/profile" element = { <Profile /> } />
 
           <Route

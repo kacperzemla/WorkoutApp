@@ -5,8 +5,12 @@ import Progressbar from "react-js-progressbar";
 import Button from "./Reusable/Button";
 import Input from "./Reusable/Input";
 import { useNavigate } from "react-router-dom";
+import * as FoodApi from "./EdamamApi";
+import { useContext } from "react";
+import MealContext from "./Contexts/MealContext";
 
 export default function Diet() {
+  const {setMeal} = useContext(MealContext);
   const userID = localStorage.getItem("userID");
   const navigate = useNavigate();
   const [calories, setCalories] = useState(0);
@@ -20,6 +24,7 @@ export default function Diet() {
   const [time, setTime] = useState("Breakfast");
   const [meals, setMeals] = useState([]);
   const [products, setProducts] = useState([]);
+  const [apiMeals, setApiMeals] = useState([]);
 
   useEffect(() => {
     const fetchUserSettings = async () => {
@@ -80,9 +85,23 @@ export default function Diet() {
     return kcal;
   }
 
-  function addMeal(id){
-    navigate(`/product/${id}`);
+  function addMeal( meal) {
+    setMeal(meal)
+    navigate(`/addMeal`);
   }
+
+  const searchForMeal = async () => {
+    const res = await fetch(
+      `https://api.edamam.com/api/food-database/v2/parser?app_id=${FoodApi.APP_ID}&app_key=${FoodApi.APP_KEY}&ingr=${mealName}&nutrition-type=cooking`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await res.json();
+    console.log(JSON.stringify(data.hints));
+    console.log(Array.isArray(data.hints) );
+    setApiMeals(data.hints);
+  };
 
   // async function addMeal(event) {
   //   event.preventDefault();
@@ -227,7 +246,25 @@ export default function Diet() {
                 value={mealName}
                 onChange={(e) => setMealName(e.target.value)}
               />
-              {products &&
+              <Button
+                type="button"
+                text="Search"
+                className="button-default"
+                onClick={searchForMeal}
+              />
+              {apiMeals &&
+                apiMeals.map((meal, index) => (
+                  <div className="container" key={index}>
+                    <p>{meal.food.label}</p>
+                    <Button
+                      className="button-default"
+                      text="Add"
+                      onClick={() => addMeal(meal)}
+                      type="button"
+                    />
+                  </div>
+                ))}
+              {/* {products &&
                 products.map((product, index) => (
                   <div className="container" key={index}>
                     <p>{product.productName}</p>
@@ -238,7 +275,7 @@ export default function Diet() {
                       type="button"
                     />
                   </div>
-                ))}
+                ))} */}
               {/* <input
                 placeholder="Proteins"
                 type="number"

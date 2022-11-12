@@ -223,7 +223,11 @@
     text-align: center;
     position: relative;
     color: $primary-color;
+    height: 80%;
+    overflow-y: scroll;
 }
+
+
 
 .modal-content form{
     display: flex;
