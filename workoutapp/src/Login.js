@@ -4,10 +4,11 @@ import "./Styles/global.css";
 import { useState } from "react";
 import AuthContext from "./Contexts/AuthContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Title from "./Reusable/Title";
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { setAuth } = useContext(AuthContext);
@@ -15,6 +16,7 @@ export default function Login() {
 
   async function loginUser(event) {
     event.preventDefault();
+    console.log("tak")
 
     const response = await fetch("http://localhost:1337/api/login", {
       method: "POST",
@@ -22,7 +24,7 @@ export default function Login() {
         "Content-type": "application/json",
       },
       body: JSON.stringify({
-        username,
+        email,
         password,
       }),
     });
@@ -37,16 +39,17 @@ export default function Login() {
       alert("Login successful");
       navigate('/');
     } else {
-      alert("Please check your username and password");
+      alert("Please check your email and password");
     }
   }
 
   return (
     <div className="container">
       <form className="form" onSubmit={loginUser}>
+        <Title title="Hello again!" />
         <Input
-          placeholder="Username"
-          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
         />
         <Input
           placeholder="Password"
@@ -54,6 +57,7 @@ export default function Login() {
           type="password"
         />
         <Button text="Login" className="button-default" />
+        <p className="question">Don't have an account?<Link to="/register"> Sign up</Link></p>
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as FoodApi from "./EdamamApi";
 import MealContext from "./Contexts/MealContext";
 import Button from "./Reusable/Button";
@@ -15,6 +15,9 @@ export default function AddMeal() {
   const [fats, setFats] = useState(0);
   const [kcal, setKcal] = useState(0);
   const [grams, setGrams] = useState(0);
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
+  const [isWeightValid, setIsWeightValid] = useState(true);
 
   useEffect(() => {
     // const fetchDetails = async () => {
@@ -44,37 +47,70 @@ export default function AddMeal() {
         time,
       }),
     });
+    navigate("/diet");
   };
 
   const calculateNutritions = (meal) => {
-    let base = 100;
-    let proteins = meal.food.nutrients.PROCNT;
-    let carbs = meal.food.nutrients.CHOCDF;
-    let fats = meal.food.nutrients.FAT;
+    const base = 100;
+    const proteins = meal.food.nutrients.PROCNT;
+    const carbs = meal.food.nutrients.CHOCDF;
+    const fats = meal.food.nutrients.FAT;
+    const kcal = meal.food.nutrients.ENERC_KCAL;
     setProteins(((proteins / base) * grams).toFixed(2));
     setCarbs(((carbs / base) * grams).toFixed(2));
     setFats(((fats / base) * grams).toFixed(2));
+    setKcal(((kcal / base) * grams).toFixed(2));
+  };
+
+  const validate = (e) => {
+    if (e.target.value > 10000) {
+      setError("Value must be less than 10000");
+      setIsWeightValid(false);
+    } else if (e.target.value === "") {
+      setError("Enter the weight");
+      setIsWeightValid(false);
+    } else {
+      setError("");
+      setIsWeightValid(true);
+    }
   };
 
   return (
-    <div className="container-vertical">
+    <form className="container-vertical" onSubmit={saveMeal}>
       <Title title={time} />
-      <p>{meal.food.label}</p>
-      <p>Kcal {meal.food.nutrients.ENERC_KCAL}</p>
-      <p>Proteins {meal.food.nutrients.PROCNT}</p>
-      <p>Fats {meal.food.nutrients.FAT}</p>
-      <p>Carbs {meal.food.nutrients.CHOCDF}</p>
-      <p>{proteins}</p>
-      <p>{carbs}</p>
-      <p>{fats}</p>
-      <Input
-        type="number"
-        placeholder="weight"
-        onChange={(e) => {
-          setGrams(e.target.value);
-        }}
+      <div className="container add-meal meals-container">
+        <p>{meal.food.label} (100g)</p>
+        <p>{meal.food.nutrients.ENERC_KCAL.toFixed(2)} Kcal</p>
+        {/* <p>Proteins {meal.food.nutrients.PROCNT}</p>
+        <p>Fats {meal.food.nutrients.FAT}</p>
+        <p>Carbs {meal.food.nutrients.CHOCDF}</p> */}
+        {/* <p>{proteins}</p>
+        <p>{carbs}</p>
+        <p>{fats}</p> */}
+      </div>
+
+      <div className="container weight-container">
+        <Input
+          type="number"
+          placeholder="weight"
+          onChange={(e) => {
+            validate(e);
+            setGrams(e.target.value);
+          }}
+          max={10000}
+          maxlength="5"
+          required={true}
+        />
+        <div className="meals-container">g</div>
+        <div className="meals-container">{kcal} kcal</div>
+      </div>
+      {error && <p className="meals-container-error">{error}</p>}
+      <Button
+        text="Save meal"
+        className="button-default"
+        disabled={!isWeightValid}
       />
-      <Button text="Save meal" className="button-default" onClick={saveMeal} />
-    </div>
+      <p>{isWeightValid}</p>
+    </form>
   );
 }

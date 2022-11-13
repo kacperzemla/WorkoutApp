@@ -72,4 +72,9 @@ body {
   width: 100%;
   color: #fff;
   display: inline-block;
+}
+
+.error {
+  color: #FF5252;
+  font-size: 1.2rem;
 }/*# sourceMappingURL=global.css.map */

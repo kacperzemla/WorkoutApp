@@ -24,6 +24,8 @@ export default function Diet() {
   const [meals, setMeals] = useState([]);
   const [products, setProducts] = useState([]);
   const [apiMeals, setApiMeals] = useState([]);
+  const [consumed , setConsumed] = useState(0);
+  const [remaining , setRemaining] = useState(0);
 
 
   useEffect(() => {
@@ -66,6 +68,10 @@ export default function Diet() {
     calculateIntake();
   }, [weight, radio]);
 
+  useEffect(() => {
+    setConsumed(calculateConsumedCalories(meals));
+  }, [meals])
+
   function calculateIntake() {
     if (weight) {
       switch (radio) {
@@ -81,9 +87,14 @@ export default function Diet() {
     }
   }
 
-  function calculateConsumedCalories(meal) {
+  function calculateConsumedMealCalories(meal) {
     let kcal = meal.proteins * 4 + meal.carbs * 4 + meal.fats * 9;
-    return kcal.toFixed(2);
+    return Math.round(kcal);
+  }
+
+  function calculateConsumedCalories(meals){
+    const kcal = meals.map((meal) => calculateConsumedMealCalories(meal)).reduce((a,b) => a+ b, 0);
+    return kcal;
   }
 
   function addMeal( meal) {
@@ -130,11 +141,11 @@ export default function Diet() {
     <div className="container-vertical">
       <Title title="Food summary" />
       <div className="intake-container">
-        <p>Consumed</p>
+        <p>Consumed {meals && consumed}</p>
         <div className="progress-bar-container">
           {calories !== 0 ? (
             <Progressbar
-              input={30}
+              input={(consumed/calories)*100}
               pathWidth={16}
               pathColor={["#3EADCF", "#ABE9CD"]} // use an array for gradient color.
               trailWidth={20}
@@ -148,7 +159,7 @@ export default function Diet() {
             <p>You have to set your weight and goal in profile settings</p>
           )}
         </div>
-        <p>Remaining</p>
+        <p>Remaining {(calories && meals) && consumed > calories ? 0 : (calories-consumed)}</p>
       </div>
       <Button
         text="Add meal "
@@ -166,10 +177,10 @@ export default function Diet() {
                   <div className="meals-container__meal" key={index}>
                     <span>{meal.mealName}</span>
                     <div className="meal-nutritions">
-                      <span>{meal.proteins} P</span>
-                      <span>{meal.carbs} C</span>
-                      <span>{meal.fats} F</span>
-                      <span>{calculateConsumedCalories(meal)} kcal</span>
+                      <span>{Math.round(meal.proteins)} P</span>
+                      <span>{Math.round(meal.carbs)} C</span>
+                      <span>{Math.round(meal.fats)} F</span>
+                      <span>{calculateConsumedMealCalories(meal)} kcal</span>
                     </div>
                   </div>
                 );
@@ -187,10 +198,10 @@ export default function Diet() {
                   <div className="meals-container__meal" key={index}>
                     <span>{meal.mealName}</span>
                     <div className="meal-nutritions">
-                      <span>{meal.proteins} P</span>
-                      <span>{meal.carbs} C</span>
-                      <span>{meal.fats} F</span>
-                      <span>{calculateConsumedCalories(meal)} kcal</span>
+                      <span>{Math.round(meal.proteins)} P</span>
+                      <span>{Math.round(meal.carbs)} C</span>
+                      <span>{Math.round(meal.fats)} F</span>
+                      <span>{calculateConsumedMealCalories(meal)} kcal</span>
                     </div>
                   </div>
                 );
@@ -208,10 +219,10 @@ export default function Diet() {
                   <div className="meals-container__meal" key={index}>
                     <span>{meal.mealName}</span>
                     <div className="meal-nutritions">
-                      <span>{meal.proteins} P</span>
-                      <span>{meal.carbs} C</span>
-                      <span>{meal.fats} F</span>
-                      <span>{calculateConsumedCalories(meal)} kcal</span>
+                      <span>{Math.round(meal.proteins)} P</span>
+                      <span>{Math.round(meal.carbs)} C</span>
+                      <span>{Math.round(meal.fats)} F</span>
+                      <span>{calculateConsumedMealCalories(meal)} kcal</span>
                     </div>
                   </div>
                 );

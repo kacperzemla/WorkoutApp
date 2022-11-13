@@ -80,3 +80,8 @@ body{
     color: #fff;
     display: inline-block;
 }
+
+.error{
+    color: $error-color;
+    font-size: 1.2rem;
+}

@@ -35,17 +35,17 @@ app.post("/api/register", async (req, res) => {
     res.json({ status: "ok" });
   } catch (err) {
     console.log(err)
-    res.json({ status: "error", error: "Duplicate email" });
+    res.status(200).json({ status: "error", error: "Duplicate email" });
   }
 });
 
 app.post("/api/login", async (req, res) => {
   const user = await User.findOne({
-    username: req.body.username,
+    email: req.body.email,
   });
 
   if(!user){
-    return {status: 'error', error: 'Invalid login'};
+    return res.json({status: 'error', error: 'Invalid login'});
   }
 
   const isPasswordValid = await bcrypt.compare(req.body.password, user.password);
