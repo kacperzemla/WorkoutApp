@@ -13,10 +13,8 @@ export function WorkoutProvider({ children }) {
     return saved ? JSON.parse(saved).workout : [];
   });
 
-
   const [exerciseBlock, setExerciseBlock] = useState(() => {
     const saved = localStorage.getItem("activeWorkout");
-    console.log(saved);
     return saved
       ? formatWorkoutFromJsonToArray(JSON.parse(saved).workout)
       : [{ exerciseName: "" }];
@@ -39,9 +37,22 @@ export function WorkoutProvider({ children }) {
     localStorage.setItem("activeWorkout", JSON.stringify(workoutJson));
   }, [workoutJson]);
 
+  useEffect(() => {
+    console.log(exerciseBlock);
+  }, [exerciseBlock]);
+
+
   return (
     <WorkoutContext.Provider
-      value={{ setWorkout, setWorkoutName, workoutJson, exerciseBlock, setExerciseBlock, workout }}
+      value={{
+        setWorkout,
+        setWorkoutName,
+        workoutJson,
+        exerciseBlock,
+        setExerciseBlock,
+        workout,
+        workoutName
+      }}
     >
       {children}
     </WorkoutContext.Provider>

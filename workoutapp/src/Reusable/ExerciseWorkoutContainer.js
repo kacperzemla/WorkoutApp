@@ -1,10 +1,10 @@
 import "../Styles/functional.css";
 import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
-import WorkoutContext from "../Contexts/WorkoutContext";
+
 
 function ExerciseWorkoutContainer({ onChange, id, exercise }) {
-  const { workout, setWorkout } = useContext(WorkoutContext);
+
   const [inputFields, setInputFields] = useState(() => {
     const sets = exercise.sets;
     return sets ? sets : [{ reps: "", weights: "" }];
@@ -17,6 +17,16 @@ function ExerciseWorkoutContainer({ onChange, id, exercise }) {
     }
     return saved || "";
   });
+
+  useEffect(() => {
+    const sets = exercise.sets;
+    setInputFields(sets ? sets : [{ reps: "", weights: "" }]);
+    setExerciseName(exercise.exerciseName);
+  }, [exercise])
+
+  useEffect(() => {
+    console.log(inputFields);
+  }, [inputFields])
 
   const handleChange = (index, event) => {
     let data = [...inputFields];

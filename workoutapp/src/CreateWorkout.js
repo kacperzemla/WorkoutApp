@@ -8,35 +8,25 @@ import { useContext } from "react";
 import Button from "./Reusable/Button";
 
 export default function CreateWorkout() {
-  let saved = localStorage.getItem("activeWorkout");
+
   const {
     setWorkout,
     setWorkoutName,
     workoutJson,
     workout,
+    workoutName,
     exerciseBlock,
     setExerciseBlock,
   } = useContext(WorkoutContext);
-  // const [jsonWorkout, setJsonWorkout] = useState(() => {
-  //   return saved ? JSON.parse(saved).workout : {};
-  // });
+
   const [time, setTime] = useState(0);
+  const [render, setRender] = useState(true);
 
   const userID = localStorage.getItem("userID");
 
-  useEffect(() => {
-    timer();
-    console.log(workout);
-  }, []);
-
-  useEffect(() => {
-    console.log(workout);
-  }, [workout]);
-
   // useEffect(() => {
-  //   setWorkout(jsonWorkout);
-  //   console.log(jsonWorkout)
-  // }, [jsonWorkout]);
+  //   timer();
+  // });
 
   function handleFieldsChange(fieldId, value) {
     setWorkout({ ...workout, [fieldId]: value });
@@ -94,7 +84,7 @@ export default function CreateWorkout() {
       <Input
         placeholder="Name"
         onChange={(event) => setWorkoutName(event.target.value)}
-        value={workoutJson.workoutName || ""}
+        value={workoutName || ""}
       />
       {exerciseBlock.map((exercise, index) => {
         return (

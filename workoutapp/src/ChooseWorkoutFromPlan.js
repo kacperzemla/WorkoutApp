@@ -48,10 +48,10 @@ export default function ChooseWorkoutFromPlan() {
       });
 
       const data = await res.json();
-
+      let exercises = formatWorkoutFromJsonToArray(data.plan.plan);
       setWorkoutName(data.plan.planName);
       setWorkout(data.plan.plan);
-      // setExerciseBlock(formatWorkoutFromJsonToArray(data.plan.plan));
+      setExerciseBlock([...exercises]);
     };
 
     getPlan();
@@ -65,9 +65,10 @@ export default function ChooseWorkoutFromPlan() {
       });
 
       const data = await res.json();
+      let exercises = formatWorkoutFromJsonToArray(data.plan.plan);
       setWorkoutName(data.plan.planName);
       setWorkout(data.plan.plan);
-      // setExerciseBlock(formatWorkoutFromJsonToArray(data.plan.plan));
+      setExerciseBlock([...exercises]);
     };
 
 
