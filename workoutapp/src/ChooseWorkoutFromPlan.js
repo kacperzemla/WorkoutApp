@@ -6,7 +6,7 @@ import { useContext } from "react";
 import WorkoutContext from "./Contexts/WorkoutContext";
 
 export default function ChooseWorkoutFromPlan() {
-  const { setWorkout, setWorkoutName, workoutJson, workoutName } =
+  const { setWorkout, setWorkoutName, workoutJson, workoutName, setExerciseBlock, exerciseBlock } =
     useContext(WorkoutContext);
   const navigate = useNavigate();
   const userID = localStorage.getItem("userID");
@@ -48,8 +48,10 @@ export default function ChooseWorkoutFromPlan() {
       });
 
       const data = await res.json();
+
       setWorkoutName(data.plan.planName);
       setWorkout(data.plan.plan);
+      // setExerciseBlock(formatWorkoutFromJsonToArray(data.plan.plan));
     };
 
     getPlan();
@@ -65,12 +67,21 @@ export default function ChooseWorkoutFromPlan() {
       const data = await res.json();
       setWorkoutName(data.plan.planName);
       setWorkout(data.plan.plan);
+      // setExerciseBlock(formatWorkoutFromJsonToArray(data.plan.plan));
     };
 
 
     getPlan();
     navigate("/createWorkout");
   };
+
+  function formatWorkoutFromJsonToArray(workout) {
+    let array = [];
+    for (const key in workout) {
+      array.push(workout[key]);
+    }
+    return array;
+  }
 
   const countNumberOfExercises = (plan) => {
     return Object.keys(plan).length;

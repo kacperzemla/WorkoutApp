@@ -8,22 +8,14 @@ import { useContext } from "react";
 import Button from "./Reusable/Button";
 
 export default function CreateWorkout() {
-  const saved = localStorage.getItem("activeWorkout");
-  const { setWorkout, setWorkoutName, workoutJson } =
+  let saved = localStorage.getItem("activeWorkout");
+  const { setWorkout, setWorkoutName, workoutJson, workout, exerciseBlock, setExerciseBlock } =
     useContext(WorkoutContext);
   const [jsonWorkout, setJsonWorkout] = useState(() => {
-    
     return saved ? JSON.parse(saved).workout : {};
   });
   const [time, setTime] = useState(0);
 
-  const [exerciseBlock, setExerciseBlock] = useState(() => {
-    // const saved = localStorage.getItem("activeWorkout");
-    console.log(saved)
-    return saved
-      ? formatWorkoutFromJsonToArray(JSON.parse(saved).workout)
-      : [{ exerciseName: "" }];
-  });
 
   const userID = localStorage.getItem("userID");
 
@@ -31,8 +23,10 @@ export default function CreateWorkout() {
     timer();
   }, []);
 
+
   useEffect(() => {
     setWorkout(jsonWorkout);
+    console.log("co sie odpierdala")
   }, [jsonWorkout]);
 
   function handleFieldsChange(fieldId, value) {
@@ -44,13 +38,7 @@ export default function CreateWorkout() {
     setExerciseBlock([...exerciseBlock, newExercise]);
   }
 
-  function formatWorkoutFromJsonToArray(workout) {
-    let array = [];
-    for (const key in workout) {
-      array.push(workout[key]);
-    }
-    return array;
-  }
+
 
   async function saveWorkout(event) {
     event.preventDefault();
