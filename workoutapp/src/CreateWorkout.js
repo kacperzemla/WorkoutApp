@@ -9,36 +9,43 @@ import Button from "./Reusable/Button";
 
 export default function CreateWorkout() {
   let saved = localStorage.getItem("activeWorkout");
-  const { setWorkout, setWorkoutName, workoutJson, workout, exerciseBlock, setExerciseBlock } =
-    useContext(WorkoutContext);
-  const [jsonWorkout, setJsonWorkout] = useState(() => {
-    return saved ? JSON.parse(saved).workout : {};
-  });
+  const {
+    setWorkout,
+    setWorkoutName,
+    workoutJson,
+    workout,
+    exerciseBlock,
+    setExerciseBlock,
+  } = useContext(WorkoutContext);
+  // const [jsonWorkout, setJsonWorkout] = useState(() => {
+  //   return saved ? JSON.parse(saved).workout : {};
+  // });
   const [time, setTime] = useState(0);
-
 
   const userID = localStorage.getItem("userID");
 
   useEffect(() => {
     timer();
+    console.log(workout);
   }, []);
 
-
   useEffect(() => {
-    setWorkout(jsonWorkout);
-    console.log("co sie odpierdala")
-  }, [jsonWorkout]);
+    console.log(workout);
+  }, [workout]);
+
+  // useEffect(() => {
+  //   setWorkout(jsonWorkout);
+  //   console.log(jsonWorkout)
+  // }, [jsonWorkout]);
 
   function handleFieldsChange(fieldId, value) {
-    setJsonWorkout({ ...jsonWorkout, [fieldId]: value });
+    setWorkout({ ...workout, [fieldId]: value });
   }
 
   function addExercise() {
     let newExercise = { exerciseName: "" };
     setExerciseBlock([...exerciseBlock, newExercise]);
   }
-
-
 
   async function saveWorkout(event) {
     event.preventDefault();
