@@ -66,8 +66,6 @@ export default function CreateWorkout() {
       }),
     });
 
-    // const data = await response.json();
-
     setWorkout({
       0: {
         exerciseName: "",

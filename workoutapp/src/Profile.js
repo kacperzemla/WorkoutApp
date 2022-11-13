@@ -26,7 +26,6 @@ export default function Profile() {
     fetchUserSettings();
   }, []);
 
-
   async function handleSubmit(e) {
     e.preventDefault();
     const response = await fetch(
@@ -43,7 +42,10 @@ export default function Profile() {
         }),
       }
     );
-    const res = await response;
+    const data = await response.json();
+    if(data.message === "working"){
+      alert("Saved");
+    }
   }
 
   return (
@@ -54,33 +56,36 @@ export default function Profile() {
         onChange={(e) => setWeight(parseInt(e.target.value))}
         value={weight || ""}
       />
-      <div className="container">
-        <div className="container-vertical">
-          <label>Normal</label>
-          <input
-            type="radio"
-            checked={radio === "normal"}
-            value="normal"
-            onChange={(e) => setRadio(e.target.value)}
-          />
-        </div>
-        <div className="container-vertical">
-          <label>Mass</label>
-          <input
-            type="radio"
-            checked={radio === "mass"}
-            value="mass"
-            onChange={(e) => setRadio(e.target.value)}
-          />
-        </div>
-        <div className="container-vertical">
-          <label>Reduction</label>
-          <input
-            type="radio"
-            checked={radio === "reduction"}
-            value="reduction"
-            onChange={(e) => setRadio(e.target.value)}
-          />
+      <div className="container-vertical pick-goal">
+        <h2 className="pick-goal-header">Pick your goal</h2>
+        <div className="container">
+          <div className="container-vertical">
+            <label>Normal</label>
+            <input
+              type="radio"
+              checked={radio === "normal"}
+              value="normal"
+              onChange={(e) => setRadio(e.target.value)}
+            />
+          </div>
+          <div className="container-vertical">
+            <label>Mass</label>
+            <input
+              type="radio"
+              checked={radio === "mass"}
+              value="mass"
+              onChange={(e) => setRadio(e.target.value)}
+            />
+          </div>
+          <div className="container-vertical">
+            <label>Reduction</label>
+            <input
+              type="radio"
+              checked={radio === "reduction"}
+              value="reduction"
+              onChange={(e) => setRadio(e.target.value)}
+            />
+          </div>
         </div>
       </div>
       <Button className="button-secondary" text="Save settings" />

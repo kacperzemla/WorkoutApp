@@ -182,6 +182,27 @@
 
 //diet
 
+input[type=radio] {
+    width: 1.5rem;
+    height: 1.5rem;
+    accent-color: $secondary-color;
+
+}
+
+input[type=radio]:hover {
+    cursor: pointer;
+}
+
+.pick-goal label{
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: $primary-color;
+}
+
+.pick-goal-header{
+    margin-bottom: 2rem;
+}
+
 .intake-container, .meals-container {
     width: 80%;
     background-color: #F2F2F2;
