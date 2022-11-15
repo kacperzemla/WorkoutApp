@@ -4,13 +4,14 @@ import "./Styles/functional.css";
 import Progressbar from "react-js-progressbar";
 import Button from "./Reusable/Button";
 import Input from "./Reusable/Input";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import * as FoodApi from "./EdamamApi";
 import { useContext } from "react";
 import MealContext from "./Contexts/MealContext";
+import EdamamLogo from "./Edamam_Badge_Transparent.svg";
 
 export default function Diet() {
-  const {setMeal, setTime, time} = useContext(MealContext);
+  const { setMeal, setTime, time } = useContext(MealContext);
   const userID = localStorage.getItem("userID");
   const navigate = useNavigate();
   const [calories, setCalories] = useState(0);
@@ -24,9 +25,8 @@ export default function Diet() {
   const [meals, setMeals] = useState([]);
   const [products, setProducts] = useState([]);
   const [apiMeals, setApiMeals] = useState([]);
-  const [consumed , setConsumed] = useState(0);
-  const [remaining , setRemaining] = useState(0);
-
+  const [consumed, setConsumed] = useState(0);
+  const [remaining, setRemaining] = useState(0);
 
   useEffect(() => {
     const fetchUserSettings = async () => {
@@ -61,7 +61,6 @@ export default function Diet() {
     fetchProducts();
     fetchUserSettings();
     fetchMeals();
-
   }, []);
 
   useEffect(() => {
@@ -70,7 +69,7 @@ export default function Diet() {
 
   useEffect(() => {
     setConsumed(calculateConsumedCalories(meals));
-  }, [meals])
+  }, [meals]);
 
   function calculateIntake() {
     if (weight) {
@@ -92,13 +91,17 @@ export default function Diet() {
     return Math.round(kcal);
   }
 
-  function calculateConsumedCalories(meals){
-    const kcal = meals.map((meal) => calculateConsumedMealCalories(meal)).reduce((a,b) => a+ b, 0);
+  function calculateConsumedCalories(meals) {
+    const kcal = meals
+      .map((meal) => calculateConsumedMealCalories(meal))
+      .reduce((a, b) => a + b, 0);
     return kcal;
   }
 
-  function addMeal( meal) {
-    setMeal(meal)
+
+
+  function addMeal(meal) {
+    setMeal(meal);
     navigate(`/addMeal`);
   }
 
@@ -110,8 +113,7 @@ export default function Diet() {
       }
     );
     const data = await res.json();
-    console.log(JSON.stringify(data.hints));
-    console.log(Array.isArray(data.hints) );
+
     setApiMeals(data.hints);
   };
 
@@ -145,7 +147,7 @@ export default function Diet() {
         <div className="progress-bar-container">
           {calories !== 0 ? (
             <Progressbar
-              input={(consumed/calories)*100}
+              input={(consumed / calories) * 100}
               pathWidth={16}
               pathColor={["#3EADCF", "#ABE9CD"]} // use an array for gradient color.
               trailWidth={20}
@@ -159,7 +161,10 @@ export default function Diet() {
             <p>You have to set your weight and goal in profile settings</p>
           )}
         </div>
-        <p>Remaining {(calories && meals) && consumed > calories ? 0 : (calories-consumed)}</p>
+        <p>
+          Remaining{" "}
+          {calories && meals && consumed > calories ? 0 : calories - consumed}
+        </p>
       </div>
       <Button
         text="Add meal "
@@ -232,6 +237,8 @@ export default function Diet() {
       {active && (
         <div className="bg-modal">
           <div className="modal-content">
+            <a href="https://www.edamam.com/" target="_blank"><img src={EdamamLogo} alt="Edamam" /></a>
+
             <Title title="Add meal" />
             <button
               className="cancel"

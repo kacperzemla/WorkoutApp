@@ -1,17 +1,17 @@
 @import '_variables.scss';
 
-.question{
+.question {
     color: $info-color;
     font-size: 1.3rem;
     font-weight: 400;
 }
 
-.question a{
+.question a {
     color: $primary-color;
     text-decoration: none;
 }
 
-.question a:hover{
+.question a:hover {
     color: $secondary-color;
 }
 
@@ -55,7 +55,8 @@
     }
 }
 
-.button-default:disabled, .button-default[disabled] {
+.button-default:disabled,
+.button-default[disabled] {
 
     background-color: $error-color;
 }
@@ -121,11 +122,24 @@
 
 .set-list {
     list-style: none;
+    width: 100%;
+
+
+}
+
+.set-list-container{
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+}
+
+.set-list-container{
+    margin-top: 2rem;
 }
 
 .set-list-item {
-    margin-top: 2rem;
+
     display: flex;
+    grid-column-start: 1;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -142,6 +156,14 @@
     input {
         width: 30%;
     }
+
+}
+
+.remove-button {
+    text-align: center;
+    padding: 0.2rem 0;
+    width: 10%;
+    grid-column-start: 2;
 }
 
 .set-list-button {
@@ -193,17 +215,18 @@ input[type=radio]:hover {
     cursor: pointer;
 }
 
-.pick-goal label{
+.pick-goal label {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     color: $primary-color;
 }
 
-.pick-goal-header{
+.pick-goal-header {
     margin-bottom: 2rem;
 }
 
-.intake-container, .meals-container {
+.intake-container,
+.meals-container {
     width: 80%;
     background-color: #F2F2F2;
     padding: 2rem 0;
@@ -214,43 +237,43 @@ input[type=radio]:hover {
     justify-content: space-evenly;
 }
 
-.intake-container p{
+.intake-container p {
     font-size: 1.5rem;
 }
 
-.meals-container__meal{
+.meals-container__meal {
     font-size: 1.3rem;
     width: 80%;
     display: flex;
     justify-content: space-between;
 }
 
-.meal-nutritions{
+.meal-nutritions {
     display: flex;
     width: 40%;
     justify-content: space-between;
 }
 
-.meal-nutritions span{
+.meal-nutritions span {
     font-weight: 700;
 }
 
 
 
-.progress-bar-container{
+.progress-bar-container {
     width: 150px;
     height: 150px;
 }
 
 
 
-.bg-modal{
+.bg-modal {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 0;
     left: 0;
@@ -259,7 +282,7 @@ input[type=radio]:hover {
 
 
 
-.modal-content{
+.modal-content {
     width: 80%;
     background: #fff;
     border-radius: 20px;
@@ -270,31 +293,39 @@ input[type=radio]:hover {
     overflow-y: scroll;
 }
 
+.modal-content img {
+    height: 50px;
+    margin-top: 1rem;
+}
 
 
-.modal-content form{
+
+.modal-content form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.modal-content p{
+.modal-content p {
     font-weight: bold;
 }
 
-.modal-content form select{
-    width: 40%;
+.modal-content form select {
+    width: 70%;
     margin-bottom: 1rem;
-    border-radius: 5px;
-    border: 2px solid #848484;
-    padding: 3px;
+    margin-top: 1rem;
+    border-radius: 15px;
+    border: 2px solid $primary-color;
+    background-color: $primary-color;
+    color: #fff;
+    padding: 1rem;
     padding-left: 10px;
     font-weight: bold;
     outline: none;
-    box-shadow: 0 3px 10px 1px rgba(146, 146, 146, 0.575);
+    // box-shadow: 0 3px 10px 1px $primary-color;
 }
 
-.cancel{
+.cancel {
     position: absolute;
     top: 1rem;
     right: 1rem;
@@ -309,7 +340,7 @@ input[type=radio]:hover {
     cursor: pointer;
 }
 
-.modal-content input{
+.modal-content input {
     line-height: 24px;
     font-weight: 400;
     font-size: 1rem;
@@ -324,12 +355,12 @@ input[type=radio]:hover {
 
 
 
-.modal-content .container{
+.modal-content .container {
     justify-content: space-evenly;
     width: 70%;
 }
 
-.meals-container .title{
+.meals-container .title {
     margin-top: 0;
     align-self: left;
     font-size: 1.5rem;
@@ -337,56 +368,56 @@ input[type=radio]:hover {
 
 //plans
 
-.container-plans p{
+.container-plans p {
     margin: 2rem;
     cursor: pointer;
 }
 
-.activePlans{
+.activePlans {
     color: $secondary-color;
 }
 
 //add-meal
 
-.add-meal{
+.add-meal {
     margin-top: 1rem;
     gap: 20px;
 }
 
-.add-meal p{
+.add-meal p {
     color: $primary-color;
     font-weight: 700;
     font-size: 1.5rem;
     // margin-right: 2rem;
 }
 
-.weight-container{
+.weight-container {
     justify-content: space-between;
     align-items: center;
     width: 80%;
 }
 
-.weight-container input{
+.weight-container input {
     width: 40%;
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
 
-.weight-container div{
+.weight-container div {
     font-weight: 700;
     font-size: 1.5rem;
     margin-top: 0;
     width: 20%;
 }
 
-.meals-container-error{
+.meals-container-error {
     color: $error-color;
     font-size: 1.5rem;
 }
 
 @media (max-width: 600px) {
-    .weight-container div{
+    .weight-container div {
         width: 28%;
         font-size: 1.3rem;
     }
-  }
+}

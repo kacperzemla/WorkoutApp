@@ -9,7 +9,8 @@ body {
   padding-bottom: 15rem;
 }
 
-.container, .container-vertical {
+.container,
+.container-vertical {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -51,7 +52,8 @@ body {
   width: 25%;
 }
 
-.nav-item:hover, .nav-item a:hover {
+.nav-item:hover,
+.nav-item a:hover {
   cursor: pointer;
   color: lightblue;
 }
@@ -77,4 +79,25 @@ body {
 .error {
   color: #FF5252;
   font-size: 1.2rem;
+}
+
+.home-title-container {
+  justify-content: space-between;
+  width: 80%;
+  color: #2b2b2b;
+}
+.home-title-container h1 {
+  margin: 2rem 0;
+}
+.home-title-container h1 span {
+  color: lightblue;
+}
+.home-title-container button {
+  width: 20%;
+}
+
+@media (max-width: 600px) {
+  .home-title-container button {
+    width: 50%;
+  }
 }/*# sourceMappingURL=global.css.map */

@@ -20,13 +20,10 @@ export default function CreateWorkout() {
   } = useContext(WorkoutContext);
 
   const [time, setTime] = useState(0);
-  const [render, setRender] = useState(true);
+
 
   const userID = localStorage.getItem("userID");
 
-  // useEffect(() => {
-  //   timer();
-  // });
 
   function handleFieldsChange(fieldId, value) {
     setWorkout({ ...workout, [fieldId]: value });
@@ -67,24 +64,25 @@ export default function CreateWorkout() {
     window.location.reload(false);
   }
 
-  const timer = () => {
-    let time;
-    let start = Date.now();
-    setInterval(function () {
-      let delta = Date.now() - start;
-      time = Math.floor(delta / 1000);
-      setTime(time);
-    }, 1000);
-  };
+
+  // const timer = () => {
+  //   let time;
+  //   let start = Date.now();
+  //   setInterval(function () {
+  //     let delta = Date.now() - start;
+  //     time = Math.floor(delta / 1000);
+  //     setTime(time);
+  //   }, 1000);
+  // };
 
   return (
     <form className="container-vertical" onSubmit={saveWorkout}>
-      <p>{time}</p>
       <Title title="Create new workout" />
       <Input
         placeholder="Name"
         onChange={(event) => setWorkoutName(event.target.value)}
         value={workoutName || ""}
+        required={true}
       />
       {exerciseBlock.map((exercise, index) => {
         return (
@@ -98,7 +96,7 @@ export default function CreateWorkout() {
       })}
       <Button
         className="button-default"
-        text="Add new exercise"
+        text="New exercise"
         onClick={addExercise}
         type="button"
       />

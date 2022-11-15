@@ -16,7 +16,6 @@ export default function Login() {
 
   async function loginUser(event) {
     event.preventDefault();
-    console.log("tak")
 
     const response = await fetch("http://localhost:1337/api/login", {
       method: "POST",

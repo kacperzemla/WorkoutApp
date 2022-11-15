@@ -37,10 +37,6 @@ export function WorkoutProvider({ children }) {
     localStorage.setItem("activeWorkout", JSON.stringify(workoutJson));
   }, [workoutJson]);
 
-  useEffect(() => {
-    console.log(exerciseBlock);
-  }, [exerciseBlock]);
-
 
   return (
     <WorkoutContext.Provider

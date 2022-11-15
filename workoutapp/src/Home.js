@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import WorkoutContainer from "./Reusable/WorkoutContainer";
 import "./Styles/functional.css";
 import jwtDecode from "jwt-decode";
 import Title from "./Reusable/Title";
+import Button from "./Reusable/Button";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -40,19 +41,26 @@ export default function Home() {
   };
 
   const getUsername = () => {
-    const token = localStorage.getItem('token')
-    if(token) {
-        const user = jwtDecode(token);
-        setUser(user.username);
+    const token = localStorage.getItem("token");
+    if (token) {
+      const user = jwtDecode(token);
+      setUser(user.username);
     }
-  }
+  };
 
   return (
     <div className="container-vertical">
-      <Title title={`Hello, ${user}`} />
+      <div className="container home-title-container">
+        <h1>
+          <span>Hello,</span><br /> {user}!
+        </h1>
+        <Button className="button-secondary" text="Logout" />
+      </div>
       {activeWorkout && activeWorkout.workoutName && (
         <div className="container-vertical">
-          <h2>Active workout</h2>
+          <div className="container home-title-container">
+            <h2>Active workout</h2>
+          </div>
           <WorkoutContainer
             name={activeWorkout.workoutName}
             onClick={() => handleActiveWorkoutClick()}
@@ -60,7 +68,9 @@ export default function Home() {
           />
         </div>
       )}
-      <h2>Workout history</h2>
+      <div className="container home-title-container">
+        <h2>Workout history</h2>
+      </div>
       {workouts &&
         workouts.map((workout, index) => {
           return (

@@ -1,31 +1,32 @@
 @import '_variables.scss';
 // @use './_variables';
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body{
+body {
     min-height: 100vh;
     padding-bottom: 15rem;
 }
 
 
 
-.container, .container-vertical{
+.container,
+.container-vertical {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.container-vertical{
+.container-vertical {
     flex-direction: column;
 }
 
-.form{
+.form {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -34,13 +35,13 @@ body{
 }
 
 
-.nav{
+.nav {
     width: 100%;
     position: fixed;
     bottom: 0;
 }
 
-.nav-list{
+.nav-list {
     display: flex;
     flex-direction: row;
     background-color: $primary-color;
@@ -51,18 +52,19 @@ body{
     width: 100%;
 }
 
-.nav-item{
+.nav-item {
     color: #fff;
     text-align: center;
     width: 25%;
 }
 
-.nav-item:hover, .nav-item a:hover{
+.nav-item:hover,
+.nav-item a:hover {
     cursor: pointer;
     color: lightblue;
 }
 
-.nav li:nth-child(3){
+.nav li:nth-child(3) {
     // position: absolute;
     background: $primary-color;
     height: 70px;
@@ -74,14 +76,42 @@ body{
     transform: translateY(-40px);
 }
 
-.nav-item a{
+.nav-item a {
     text-decoration: none;
     width: 100%;
     color: #fff;
     display: inline-block;
 }
 
-.error{
+.error {
     color: $error-color;
     font-size: 1.2rem;
+}
+
+.home-title-container {
+    justify-content: space-between;
+    width: 80%;
+    color: $primary-color;
+
+    h1{
+        margin: 2rem 0;
+    }
+
+    h1 span{
+        color: $secondary-color;
+    }
+
+    button{
+        width: 20%;
+    }
+}
+
+
+@media (max-width: 600px){
+    .home-title-container{
+        // flex-direction: column;
+        button{
+            width: 50%;
+        }
+    }
 }

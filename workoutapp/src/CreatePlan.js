@@ -8,10 +8,10 @@ import Button from "./Reusable/Button";
 
 export default function CreatePlan() {
   const [json, setJson] = useState({});
-  const { plan, setPlan, planName, setPlanName, planJson } = useContext(PlanContext);
+  const { plan, setPlan, planName, setPlanName, planJson } =
+    useContext(PlanContext);
   const [exerciseBlock, setExerciseBlock] = useState([{ exerciseName: "" }]);
   const userID = localStorage.getItem("userID");
-
 
   function handleFieldsChange(fieldId, value) {
     setJson({ ...json, [fieldId]: value });
@@ -41,7 +41,7 @@ export default function CreatePlan() {
     });
 
     const data = await response.json();
-    setPlanName('');
+    setPlanName("");
     setExerciseBlock([{ exerciseName: "" }]);
     setPlan([]);
     window.location.reload(false);
@@ -51,7 +51,12 @@ export default function CreatePlan() {
     <form className="container-vertical" onSubmit={createPlan}>
       <Title title="Create new plan" />
 
-      <Input placeholder="Name" onChange={(e) => setPlanName(e.target.value)} value={planName}/>
+      <Input
+        placeholder="Name"
+        onChange={(e) => setPlanName(e.target.value)}
+        value={planName}
+        required={true}
+      />
       {exerciseBlock.map((exercise, index) => {
         return (
           <ExerciseContainer
@@ -63,7 +68,7 @@ export default function CreatePlan() {
       })}
       <Button
         className="button-default"
-        text="Add new exercise"
+        text="New exercise"
         onClick={addExercise}
         type="button"
       />

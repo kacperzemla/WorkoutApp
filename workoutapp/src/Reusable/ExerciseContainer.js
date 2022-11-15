@@ -3,16 +3,17 @@ import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
 import PlanContext from "../Contexts/PlanContext";
 import AuthContext from "../Contexts/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
-function ExerciseContainer({onChange, id}) {
+function ExerciseContainer({ onChange, id }) {
   const { plan, setPlan } = useContext(PlanContext);
   const [inputFields, setInputFields] = useState([{ reps: "", weights: "" }]);
   const [exerciseName, setExerciseName] = useState("");
 
-
   const handleChange = (index, event) => {
     let data = [...inputFields];
-    let exerciseId = id+1;
+    let exerciseId = id + 1;
     data[index][event.target.name] = event.target.value;
     setInputFields(data);
     onChange(id, createJson());
@@ -20,16 +21,22 @@ function ExerciseContainer({onChange, id}) {
 
   const handleChangeName = (event) => {
     setExerciseName(event.target.value);
-    onChange(id,createJson());
-  }
+    onChange(id, createJson());
+  };
 
   useEffect(() => {
-    onChange(id,createJson());
-  }, [exerciseName])
+    onChange(id, createJson());
+  }, [exerciseName]);
 
   const addFields = () => {
     let newfield = { reps: "", weights: "" };
     setInputFields([...inputFields, newfield]);
+  };
+
+  const removeFields = (index) => {
+    let data = [...inputFields];
+    data.splice(index, 1);
+    setInputFields(data);
   };
 
   function createJson() {
@@ -40,42 +47,50 @@ function ExerciseContainer({onChange, id}) {
     return json;
   }
 
-
   return (
     <div className="container-vertical container-exercise">
       <input
         type="text"
         className="container-exercise__input"
         onChange={(e) => handleChangeName(e)}
+        required
       />
       <ul className="container-vertical set-list">
         {inputFields.map((input, index) => {
           return (
-            <li className="set-list-item" key={index}>
-              <span>{index + 1}.</span>
-              <span>Reps: </span>
-              <input
-                type="text"
-                className="container-exercise__input"
-                value={input.reps}
-                onChange={(event) => handleChange(index, event)}
-                name="reps"
-              />
-              <span>Weight: </span>
-              <input
-                type="text"
-                className="container-exercise__input"
-                value={input.weights}
-                onChange={(event) => handleChange(index, event)}
-                name="weights"
-              />
-            </li>
+            <div className="container set-list-container" key={index}>
+              <li className="set-list-item" >
+                <span>{index + 1}.</span>
+                <span>Reps: </span>
+                <input
+                  type="number"
+                  className="container-exercise__input"
+                  value={input.reps}
+                  onChange={(event) => handleChange(index, event)}
+                  name="reps"
+                  required
+                />
+                <span>Weight: </span>
+                <input
+                  type="number"
+                  className="container-exercise__input"
+                  value={input.weights}
+                  onChange={(event) => handleChange(index, event)}
+                  name="weights"
+                  required
+                />
+              </li>
+              {index > 0 && (
+                <FontAwesomeIcon icon={faTrash} onClick={removeFields} />
+              )}
+            </div>
           );
         })}
         <Button
           text="+"
           className="button-default set-list-button"
           onClick={() => addFields()}
+          type="button"
         />
       </ul>
     </div>
