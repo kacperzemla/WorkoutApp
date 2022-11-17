@@ -84,7 +84,7 @@ function ExerciseWorkoutContainer({ onChange, id, exercise }) {
                     name="reps"
                     required
                   />
-                  <span>Weight: </span>
+                  <span>kg: </span>
                   <input
                     type="number"
                     className="container-exercise__input"

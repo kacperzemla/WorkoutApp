@@ -48,13 +48,18 @@ export default function Home() {
     }
   };
 
+  const logoutUser = () => {
+    localStorage.removeItem("token");
+    window.location.reload(false);
+  }
+
   return (
     <div className="container-vertical">
       <div className="container home-title-container">
         <h1>
           <span>Hello,</span><br /> {user}!
         </h1>
-        <Button className="button-secondary" text="Logout" />
+        <Button className="button-secondary" text="Logout"  onClick={logoutUser}/>
       </div>
       {activeWorkout && activeWorkout.workoutName && (
         <div className="container-vertical">
