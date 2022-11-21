@@ -34,6 +34,9 @@ export default function Diet() {
         `http://localhost:1337/api/userSettings/${userID}`,
         {
           method: "GET",
+          headers: {
+            "x-access-token": localStorage.getItem("token")
+          }
         }
       );
       const data = await res.json();

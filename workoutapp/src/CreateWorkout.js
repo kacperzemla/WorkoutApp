@@ -8,7 +8,6 @@ import { useContext } from "react";
 import Button from "./Reusable/Button";
 
 export default function CreateWorkout() {
-
   const {
     setWorkout,
     setWorkoutName,
@@ -21,9 +20,7 @@ export default function CreateWorkout() {
 
   const [time, setTime] = useState(0);
 
-
   const userID = localStorage.getItem("userID");
-
 
   function handleFieldsChange(fieldId, value) {
     setWorkout({ ...workout, [fieldId]: value });
@@ -41,6 +38,7 @@ export default function CreateWorkout() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({
         userID,
@@ -48,22 +46,23 @@ export default function CreateWorkout() {
       }),
     });
 
-    setWorkout({
-      0: {
-        exerciseName: "",
-        sets: [
-          {
-            reps: "",
+    if (response.status === 200) {
+      setWorkout({
+        0: {
+          exerciseName: "",
+          sets: [
+            {
+              reps: "",
 
-            weights: "",
-          },
-        ],
-      },
-    });
-    setWorkoutName("");
-    window.location.reload(false);
+              weights: "",
+            },
+          ],
+        },
+      });
+      setWorkoutName("");
+      window.location.reload(false);
+    }
   }
-
 
   // const timer = () => {
   //   let time;

@@ -33,6 +33,7 @@ export default function CreatePlan() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        'x-access-token': localStorage.getItem("token")
       },
       body: JSON.stringify({
         userID,

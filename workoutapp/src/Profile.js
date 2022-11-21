@@ -15,6 +15,9 @@ export default function Profile() {
         `http://localhost:1337/api/userSettings/${userID}`,
         {
           method: "GET",
+          headers: {
+            "x-access-token": localStorage.getItem("token"),
+          },
         }
       );
       const data = await res.json();
@@ -34,6 +37,7 @@ export default function Profile() {
         method: "POST",
         headers: {
           "Content-type": "application/json",
+          "x-access-token": localStorage.getItem("token"),
         },
         body: JSON.stringify({
           userID,
@@ -43,7 +47,7 @@ export default function Profile() {
       }
     );
     const data = await response.json();
-    if(data.message === "working"){
+    if (data.message === "working") {
       alert("Saved");
     }
   }

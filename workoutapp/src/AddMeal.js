@@ -37,6 +37,7 @@ export default function AddMeal() {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        "x-access-token": localStorage.getItem("token")
       },
       body: JSON.stringify({
         userID,
